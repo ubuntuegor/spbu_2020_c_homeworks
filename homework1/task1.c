@@ -6,7 +6,7 @@ typedef struct Point {
     int y;
 } Point;
 
-void printSquare(int **numbers, int size, Point *p)
+void printSquare(int** numbers, int size, Point* p)
 {
     for (int i = 0; i < size - 2; i++) {
         printf("%d\n", numbers[p->x][p->y]);
@@ -30,7 +30,7 @@ int main()
 {
     int n = 5;
 
-    int **numbers;
+    int** numbers;
     numbers = malloc(n * sizeof(*numbers));
 
     for (int i = 0; i < n; i++) {
@@ -40,7 +40,7 @@ int main()
     }
 
     int center = (n - 1) / 2;
-    Point p = {center, center};
+    Point p = { center, center };
 
     printf("%d\n", numbers[p.x][p.y]);
 
