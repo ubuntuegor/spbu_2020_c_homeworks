@@ -6,12 +6,17 @@
 
 int main()
 {
-    int n = 100;
+    int n;
+    scanf("%d", &n);
+
+    if (n < 2) {
+        return 0;
+    }
 
     int oddCount = (n + 1) / 2;
-    bool* notPrimeOdds = calloc(oddCount, sizeof(bool));
+    bool* notPrimeOdds = (bool*)calloc(oddCount, sizeof(bool));
 
-    for (int n1 = 1; (4 * n1 * n1 + 4 * n1 + 1) <= n; n1++) { // (2n+1)^2
+    for (int n1 = 1; (4 * n1 * n1 + 4 * n1 + 1) <= n; n1++) { // (2n + 1) ^ 2
         for (int n2 = n1;; n2++) {
             int odd1 = 2 * n1 + 1;
             int odd2 = 2 * n2 + 1;
@@ -26,11 +31,12 @@ int main()
         }
     }
 
-    if (n > 2)
+    if (n >= 2)
         printf("2\n");
 
     for (int i = 1; i < oddCount; i++)
         printf(notPrimeOdds[i] ? "" : "%d\n", 2 * i + 1);
 
+    free(notPrimeOdds);
     return 0;
 }
