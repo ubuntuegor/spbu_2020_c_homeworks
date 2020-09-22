@@ -13,14 +13,17 @@ void printSquare(int** numbers, int size, Point* p)
         printf("%d\n", numbers[p->x][p->y]);
         p->y++;
     }
+
     for (int i = 0; i < size - 1; i++) {
         printf("%d\n", numbers[p->x][p->y]);
         p->x--;
     }
+
     for (int i = 0; i < size - 1; i++) {
         printf("%d\n", numbers[p->x][p->y]);
         p->y--;
     }
+
     for (int i = 0; i < size; i++) {
         printf("%d\n", numbers[p->x][p->y]);
         p->x++;
@@ -39,9 +42,7 @@ int main()
         return 1;
     }
 
-    int** numbers;
-    numbers = (int**)malloc(n * sizeof(*numbers));
-
+    int** numbers = (int**)malloc(n * sizeof(*numbers));
     // initialize grid with consecutive numbers
     for (int i = 0; i < n; i++) {
         numbers[i] = (int*)malloc(n * sizeof(**numbers));
@@ -51,21 +52,14 @@ int main()
 
     int center = (n - 1) / 2;
     Point p = { center, center };
-
     printf("%d\n", numbers[p.x][p.y]);
-
     p.x++;
-    int size = 3;
-    while (size <= n) {
+    for (int size = 3; size <= n; size += 2)
         printSquare(numbers, size, &p);
-        size += 2;
-    }
 
     // free allocated memory
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         free(numbers[i]);
-    }
     free(numbers);
-
     return 0;
 }
