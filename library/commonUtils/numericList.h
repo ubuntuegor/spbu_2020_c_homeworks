@@ -1,6 +1,4 @@
-#ifndef SPBU_2020_C_NUMERICLIST_H
-#define SPBU_2020_C_NUMERICLIST_H
-
+#pragma once
 #include <stdbool.h>
 
 typedef struct ListElement* ListElement;
@@ -22,5 +20,3 @@ int getValue(ListElement);
 int getLength(List list);
 
 void printList(List);
-
-#endif //SPBU_2020_C_NUMERICLIST_H
