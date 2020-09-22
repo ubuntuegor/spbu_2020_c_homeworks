@@ -4,11 +4,16 @@
 
 int main()
 {
-    char s1[] = "ahahaha";
-    char s2[] = "aha";
+    char s1[100];
+    char s2[100];
 
-    int s1Length = strlen(s1);
-    int s2Length = strlen(s2);
+    printf("haystack: ");
+    fgets(s1, 100, stdin);
+    printf("needle: ");
+    fgets(s2, 100, stdin);
+
+    int s1Length = strlen(s1) - 1; // fgets includes newline at the end of the string
+    int s2Length = strlen(s2) - 1;
     int searchRegion = s1Length - s2Length + 1;
 
     int res = 0;
