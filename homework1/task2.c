@@ -28,11 +28,14 @@ void solve(int* numbers, int m, int n)
 
 int main()
 {
-    int m = 4;
-    int n = 7;
+    int m, n;
+    printf("m: ");
+    scanf("%d", &m);
+    printf("n: ");
+    scanf("%d", &n);
 
     int* numbers;
-    numbers = calloc(n + m + 1, sizeof(*numbers));
+    numbers = (int*)calloc(n + m + 1, sizeof(*numbers));
 
     for (int i = 1; i <= n + m; i++) {
         numbers[i] = i;
@@ -45,5 +48,7 @@ int main()
     for (int i = 1; i <= n + m; i++)
         printf("%d ", numbers[i]);
 
+    printf("\n");
+    free(numbers);
     return 0;
 }
