@@ -29,7 +29,9 @@ void printSquare(int** numbers, int size, Point* p)
 
 int main()
 {
-    int n;
+    int n = 0;
+
+    printf("n: ");
     scanf("%d", &n);
 
     if (n < 1 || n % 2 == 0) {
@@ -40,7 +42,7 @@ int main()
     int** numbers;
     numbers = (int**)malloc(n * sizeof(*numbers));
 
-    // initialize grid with consequent numbers
+    // initialize grid with consecutive numbers
     for (int i = 0; i < n; i++) {
         numbers[i] = (int*)malloc(n * sizeof(**numbers));
         for (int j = 0; j < n; j++)
