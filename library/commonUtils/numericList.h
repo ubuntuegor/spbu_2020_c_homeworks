@@ -17,6 +17,6 @@ void destroyList(List);
 
 ListElement getListElementByIndex(List, int index);
 int getValue(ListElement);
-int getLength(List list);
+int getLength(List);
 
 void printList(List);
