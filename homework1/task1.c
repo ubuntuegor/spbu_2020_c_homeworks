@@ -8,6 +8,7 @@ typedef struct Point {
 
 void printSquare(int** numbers, int size, Point* p)
 {
+    // prints values clockwise starting from top right
     for (int i = 0; i < size - 2; i++) {
         printf("%d\n", numbers[p->x][p->y]);
         p->y++;
@@ -28,13 +29,20 @@ void printSquare(int** numbers, int size, Point* p)
 
 int main()
 {
-    int n = 5;
+    int n;
+    scanf("%d", &n);
+
+    if (n < 1 || n % 2 == 0) {
+        printf("Invalid grid size\n");
+        return 1;
+    }
 
     int** numbers;
-    numbers = malloc(n * sizeof(*numbers));
+    numbers = (int**)malloc(n * sizeof(*numbers));
 
+    // initialize grid with consequent numbers
     for (int i = 0; i < n; i++) {
-        numbers[i] = malloc(n * sizeof(**numbers));
+        numbers[i] = (int*)malloc(n * sizeof(**numbers));
         for (int j = 0; j < n; j++)
             numbers[i][j] = j * n + i + 1;
     }
@@ -50,6 +58,12 @@ int main()
         printSquare(numbers, size, &p);
         size += 2;
     }
+
+    // free allocated memory
+    for (int i = 0; i < n; i++) {
+        free(numbers[i]);
+    }
+    free(numbers);
 
     return 0;
 }
