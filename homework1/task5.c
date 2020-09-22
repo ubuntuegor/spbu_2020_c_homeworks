@@ -14,7 +14,7 @@ int main()
     qsort(numbers, numbersLength, sizeof(int), comparison);
 
     int lastNumber = numbers[0];
-    for (int i = 1; i < sizeof(numbers) / sizeof(int); i++) {
+    for (int i = 1; i < numbersLength; i++) {
         if (numbers[i] == lastNumber) {
             printf("%d\n", numbers[i]);
             break;
