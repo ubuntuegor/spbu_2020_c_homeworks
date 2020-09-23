@@ -53,7 +53,7 @@ int main()
     free(numbers);
 
     if (!success)
-        printf("All numbers are unique\n");
+        printf("All numbers are unique!\n");
 
     return 0;
 }
