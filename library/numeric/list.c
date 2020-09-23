@@ -1,4 +1,4 @@
-#include "numericList.h"
+#include "list.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -84,11 +84,11 @@ int getLength(List list)
     return list->length;
 }
 
-bool unshift(List list)
+ListElement unshift(List list)
 {
     ListElement toDelete = list->head;
     if (!toDelete)
-        return false;
+        return NULL;
     int temp = toDelete->value;
 
     list->head = toDelete->next;
@@ -96,46 +96,47 @@ bool unshift(List list)
         list->tail == NULL;
 
     list->length--;
-    free(toDelete);
-    return true;
+    // free(toDelete);
+    return toDelete;
 }
 
-bool pop(List list)
+ListElement pop(List list)
 {
     ListElement prevToDelete = getListElementByIndex(list, list->length - 2);
-    if (!prevToDelete) { // length 0-1
-        if (!list->tail) { // length 0
-            return false;
+    if (!prevToDelete) {
+        if (!list->tail) {
+            return NULL;
         }
 
-        // length 1
         ListElement toDelete = list->tail;
         list->head = NULL;
         list->tail = NULL;
         list->length--;
-        free(toDelete);
-        return true;
+        // free(toDelete);
+        return toDelete;
     }
 
     ListElement toDelete = list->tail;
     list->tail = prevToDelete;
     list->tail->next = NULL;
     list->length--;
-    free(toDelete);
-    return true;
+    // free(toDelete);
+    return toDelete;
 }
 
 void destroyList(List list)
 {
-    while (unshift(list)) { };
+    ListElement toFree;
+    while (toFree = unshift(list))
+        free(toFree);
     free(list);
 }
 
-void printList(List list)
+void printList(List list, char* separator)
 {
     ListElement elem = list->head;
     while (elem) {
-        printf("%d\n", elem->value);
+        printf("%d%s", elem->value, separator);
         elem = elem->next;
     }
 }
