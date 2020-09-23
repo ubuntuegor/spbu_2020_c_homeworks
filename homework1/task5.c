@@ -1,4 +1,3 @@
-#include "../library/numeric/list.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,22 +20,17 @@ int main()
     printf("Enter numbers separated with spaces: ");
     fgets(inputString, stringLimit, stdin);
 
-    List buffer = createList();
+    int numbersLength = 0;
+    int* numbers = (int*)malloc(sizeof(int));
+    numbers[0] = 0;
 
     char* numChar = strtok(inputString, " ");
-    do {
-        ListElement elem = createListElement(atoi(numChar));
-        push(buffer, elem);
-    } while (numChar = strtok(NULL, " "));
-
-    int numbersLength = getLength(buffer);
-    int* numbers = (int*)calloc(numbersLength, sizeof(int));
-    for (int i = 0; i < numbersLength; i++) {
-        ListElement elem = unshift(buffer);
-        numbers[i] = getValue(elem);
-        free(elem);
+    while (numChar) {
+        numbersLength++;
+        numbers = realloc(numbers, numbersLength * sizeof(int));
+        numbers[numbersLength - 1] = atoi(numChar);
+        numChar = strtok(NULL, " ");
     }
-    destroyList(buffer);
 
     qsort(numbers, numbersLength, sizeof(int), comparison);
 
