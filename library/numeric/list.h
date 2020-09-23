@@ -5,18 +5,18 @@ typedef struct ListElement* ListElement;
 
 typedef struct List* List;
 
-ListElement createListElement(int);
+ListElement createListElement(int value);
 List createList();
 
 List shift(List, ListElement);
 List push(List, ListElement);
 
-bool unshift(List);
-bool pop(List);
+ListElement unshift(List);
+ListElement pop(List);
 void destroyList(List);
 
-ListElement getListElementByIndex(List, int index);
+ListElement getListElementByIndex(List, int);
 int getValue(ListElement);
-int getLength(List list);
+int getLength(List);
 
-void printList(List);
+void printList(List, char* separator);
