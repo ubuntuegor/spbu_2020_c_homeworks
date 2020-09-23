@@ -10,8 +10,8 @@ int main()
     char s2[stringLimit];
 
     for (int i = 0; i < stringLimit; i++) { // Initialize strings because someone asked for that.
-        s1[i] = NULL;
-        s2[i] = NULL;
+        s1[i] = '\0';
+        s2[i] = '\0';
     }
 
     printf("Haystack: ");
