@@ -10,7 +10,7 @@ int main()
     printf("n: ");
     scanf("%d", &n);
 
-    int* numbers = (int*)calloc(n + m + 1, sizeof(*numbers));
+    int* numbers = (int*)calloc(m + n + 1, sizeof(*numbers));
 
     printf("Original array:\n");
     for (int i = 1; i <= m + n; i++) {
@@ -19,7 +19,9 @@ int main()
     }
     printf("\n");
 
-    // FIXME: add solution
+    reverse(&numbers[1], m);
+    reverse(&numbers[1 + m], n);
+    reverse(&numbers[1], m + n);
 
     printf("Result:\n");
     for (int i = 1; i <= m + n; i++)
