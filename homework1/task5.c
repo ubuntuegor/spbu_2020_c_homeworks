@@ -30,7 +30,7 @@ int main()
     } while (numChar = strtok(NULL, " "));
 
     int numbersLength = getLength(buffer);
-    int* numbers = calloc(numbersLength, sizeof(int));
+    int* numbers = (int*)calloc(numbersLength, sizeof(int));
     for (int i = 0; i < numbersLength; i++) {
         ListElement elem = unshift(buffer);
         numbers[i] = getValue(elem);
