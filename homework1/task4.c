@@ -6,10 +6,12 @@
 
 int main()
 {
-    int n;
+    int n = 0;
+    printf("n: ");
     scanf("%d", &n);
 
     if (n < 2) {
+        printf("No prime numbers found; your number is too low\n");
         return 0;
     }
 
@@ -31,11 +33,11 @@ int main()
         }
     }
 
-    if (n >= 2)
-        printf("2\n");
+    printf("Prime numbers: 2 ");
 
     for (int i = 1; i < oddCount; i++)
-        printf(notPrimeOdds[i] ? "" : "%d\n", 2 * i + 1);
+        printf(notPrimeOdds[i] ? "" : "%d ", 2 * i + 1);
+    printf("\n");
 
     free(notPrimeOdds);
     return 0;
