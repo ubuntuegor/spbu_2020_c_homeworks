@@ -4,7 +4,8 @@
 
 int main()
 {
-    int m = 0, n = 0;
+    int m = 0;
+    int n = 0;
     printf("m: ");
     scanf("%d", &m);
     printf("n: ");
