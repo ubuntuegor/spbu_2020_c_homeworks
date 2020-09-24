@@ -12,31 +12,21 @@ int comparison(const void* a, const void* b)
 
 int main()
 {
-    char inputString[stringLimit];
-    for (int i = 0; i < stringLimit; i++) {
-        inputString[i] = '\0';
+    int n = 0;
+    printf("Number of input numbers: ");
+    scanf("%d", &n);
+
+    int* numbers = (int*)calloc(n, sizeof(int));
+    printf("Enter numbers:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &numbers[i]);
     }
 
-    printf("Enter numbers separated with spaces: ");
-    fgets(inputString, stringLimit, stdin);
-
-    int numbersLength = 0;
-    int* numbers = (int*)malloc(sizeof(int));
-    numbers[0] = 0;
-
-    char* numChar = strtok(inputString, " ");
-    while (numChar) {
-        numbersLength++;
-        numbers = realloc(numbers, numbersLength * sizeof(int));
-        numbers[numbersLength - 1] = atoi(numChar);
-        numChar = strtok(NULL, " ");
-    }
-
-    qsort(numbers, numbersLength, sizeof(int), comparison);
+    qsort(numbers, n, sizeof(int), comparison);
 
     bool success = false;
     int lastNumber = numbers[0];
-    for (int i = 1; i < numbersLength; i++) {
+    for (int i = 1; i < n; i++) {
         if (numbers[i] == lastNumber) {
             success = true;
             printf("Result: %d\n", numbers[i]);
