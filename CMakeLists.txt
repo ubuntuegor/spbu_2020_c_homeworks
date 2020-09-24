@@ -11,3 +11,5 @@ target_link_libraries(numericListTest numericList)
 
 add_executable(numericOperationsTest tests/numericOperationsTest.c)
 target_link_libraries(numericOperationsTest numericOperations)
+
+add_executable(task1_1 homework1/task1.c)
