@@ -16,3 +16,11 @@ void swap(int* a, int* b)
     *a = *b;
     *b = temp;
 }
+
+void reverse(int* array, int size)
+{
+    int limit = size / 2;
+    for (int i = 0; i < limit; i++) {
+        swap(&array[i], &array[size - 1 - i]);
+    }
+}
