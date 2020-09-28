@@ -77,15 +77,11 @@ int main()
 
         int bulls = 0;
         int cows = 0;
-        bool marked[4] = { false, false, false, false };
 
         // Check bulls
-        for (int i = 0; i < 4; i++) {
-            if (guessDigits[i] == correctDigits[i]) {
+        for (int i = 0; i < 4; i++)
+            if (guessDigits[i] == correctDigits[i])
                 bulls++;
-                marked[i] = true;
-            }
-        }
 
         if (bulls == 4) {
             printf("You guessed it! Congratulations!\n");
@@ -95,11 +91,10 @@ int main()
         // Check cows
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (i == j || marked[j])
+                if (i == j)
                     continue;
                 if (guessDigits[i] == correctDigits[j]) {
                     cows++;
-                    marked[j] = true;
                     break;
                 }
             }
