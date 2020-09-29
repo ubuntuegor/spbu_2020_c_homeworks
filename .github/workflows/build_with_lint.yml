@@ -12,6 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Install glibc
+        run: |
+          sudo apt update
+          sudo apt install libc6 --yes
       - name: Install CLang 10
         run: |
           sudo apt update
