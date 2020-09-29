@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-void generateNumber(int* result, int length)
+void generateGameNumber(int* result, int length)
 {
     int i = 0;
     while (i < length) {
@@ -44,10 +44,10 @@ int main()
     printf("Bulls and Cows\n\nI'm thinking of a 4-digit number... Try to guess it and I will "
            "tell you how many digits of your number are in the right position (bulls) or "
            "wrong position (cows).\nGood luck!\n");
-    srand(time(NULL));
+    srand(time(NULL)); // Set random seed to current time.
 
     int correctDigits[4] = { 0, 0, 0, 0 };
-    generateNumber(correctDigits, 4);
+    generateGameNumber(correctDigits, 4);
 
     while (1) {
         int guess = 0;
@@ -55,12 +55,18 @@ int main()
         scanf("%d", &guess);
 
         int guessDigits[4] = { 0, 0, 0, 0 };
-        dissectNumberToDigits(guessDigits, 4, guess);
+
+        if (guess < 0) {
+            printf("Negative number? Seriously? Read the game rules once again.\n");
+            continue;
+        }
 
         if (guess > 9999) {
             printf("Your number is too large!\n");
             continue;
         }
+
+        dissectNumberToDigits(guessDigits, 4, guess);
 
         if (!checkUnique(guessDigits, 4)) {
             printf("Your number shouldn't contain repeating digits!\n");
