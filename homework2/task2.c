@@ -1,3 +1,4 @@
+#include "../library/numeric/operations.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,14 +39,6 @@ bool checkUnique(int* digits, int length)
     return result;
 }
 
-void dissectNumberToDigits(int* result, int number)
-{
-    result[0] = number / 1000;
-    result[1] = (number - result[0] * 1000) / 100;
-    result[2] = (number - result[0] * 1000 - result[1] * 100) / 10;
-    result[3] = number % 10;
-}
-
 int main()
 {
     printf("Bulls and Cows\n\nI'm thinking of a 4-digit number... Try to guess it and I will "
@@ -55,7 +48,6 @@ int main()
 
     int correctDigits[4] = { 0, 0, 0, 0 };
     generateNumber(correctDigits, 4);
-    // printf("[DEBUG] %d%d%d%d\n", correctDigits[0], correctDigits[1], correctDigits[2], correctDigits[3]);
 
     while (1) {
         int guess = 0;
@@ -63,7 +55,7 @@ int main()
         scanf("%d", &guess);
 
         int guessDigits[4] = { 0, 0, 0, 0 };
-        dissectNumberToDigits(guessDigits, guess);
+        dissectNumberToDigits(guessDigits, 4, guess);
 
         if (guess > 9999) {
             printf("Your number is too large!\n");
