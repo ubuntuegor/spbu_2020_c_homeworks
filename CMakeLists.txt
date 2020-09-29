@@ -4,6 +4,7 @@ project(spbu_2020_c_homeworks C)
 set(CMAKE_C_STANDARD 11)
 
 add_library(numericOperations library/numeric/operations.c)
+target_link_libraries(numericOperations PRIVATE m)
 
 add_executable(task1_1 homework1/task1.c)
 add_executable(task1_2 homework1/task2.c)
@@ -13,4 +14,4 @@ add_executable(task1_4 homework1/task4.c)
 add_executable(task1_5 homework1/task5.c)
 
 add_executable(task2_4 homework2/task4.c)
-target_link_libraries(task2_4 m numericOperations)
+target_link_libraries(task2_4 numericOperations)
