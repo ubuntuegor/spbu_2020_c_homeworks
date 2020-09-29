@@ -1,4 +1,5 @@
 #include "operations.h"
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 int min(int a, int b)
