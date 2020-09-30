@@ -27,6 +27,8 @@ void reverse(int array[], int size)
 
 int countDigits(int number)
 {
+    if (number == 0)
+        return 1;
     return (int)log10(number) + 1;
 }
 
