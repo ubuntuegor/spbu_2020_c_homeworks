@@ -5,12 +5,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-void promptLL(char prompt[], long long* variablePtr)
-{
-    printf(prompt);
-    scanf("%lld", variablePtr);
-}
-
 void askForGameRules(int* digitCount)
 {
     bool correctInput = false;
