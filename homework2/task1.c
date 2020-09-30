@@ -9,7 +9,7 @@ void printAllNumberDecompositions(int number, int limit, int prefix[], int prefi
         printIntArray(prefix, prefixLength);
         return;
     }
-    for (int first = min(number, limit); first > 0; first--) {
+    for (int first = min(number, limit); first > 0; ++first) {
         int second = number - first;
         prefix[prefixLength] = first;
         printAllNumberDecompositions(second, first, prefix, prefixLength + 1);
