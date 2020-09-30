@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include <time.h>
 
+void promptLL(char prompt[], long long* variablePtr)
+{
+    printf(prompt);
+    scanf("%lld", variablePtr);
+}
+
 void askForGameRules(int* digitCount)
 {
     bool correctInput = false;
@@ -79,8 +85,8 @@ int main()
 
     bool guessed = false;
     while (!guessed) {
-        unsigned long long guess = 0;
-        promptLLU("\nYour guess: ", &guess);
+        long long guess = 0;
+        promptLL("\nYour guess: ", &guess);
 
         if (guess < 0) {
             printf("Negative number? Seriously? Read the game rules once again.\n");
