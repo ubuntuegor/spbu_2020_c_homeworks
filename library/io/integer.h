@@ -1,1 +1,1 @@
-void promptInt(char prompt[], int*)
+void promptInt(char prompt[], int*);
