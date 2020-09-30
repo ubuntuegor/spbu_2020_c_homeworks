@@ -5,5 +5,5 @@ int max(int, int);
 void swap(int*, int*);
 void reverse(int array[], int size);
 
-int countDigits(int);
-void dissectNumberToDigits(int digitsArray[], int size, int number);
+int countDigits(unsigned long long);
+void dissectNumberToDigits(int digitsArray[], int size, unsigned long long number);
