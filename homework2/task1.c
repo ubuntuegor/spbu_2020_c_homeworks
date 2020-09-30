@@ -1,7 +1,6 @@
 #include "../library/numeric/io.h"
 #include "../library/numeric/operations.h"
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 void printAllNumberDecompositions(int number, int limit, int prefix[], int prefixLength)
