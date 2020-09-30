@@ -1,3 +1,4 @@
+#include "../library/numeric/io.h"
 #include "../library/numeric/operations.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,12 +6,6 @@
 int comparison(const void* a, const void* b)
 {
     return *(int*)a - *(int*)b;
-}
-
-void promptLLU(char prompt[], unsigned long long* variablePtr)
-{
-    printf(prompt);
-    scanf("%llu", variablePtr);
 }
 
 void printArrayAsNumber(int array[], int length)
@@ -33,7 +28,7 @@ void getMinimalNumberFromDigits(int digits[], int digitsLength)
 int main()
 {
     unsigned long long number = 0;
-    promptLLU("Enter a number: ", &number);
+    promptULL("Enter a number: ", &number);
 
     if (number < 0) {
         printf("Number must not be negative.\n");
