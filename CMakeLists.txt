@@ -4,7 +4,7 @@ project(spbu_2020_c_homeworks C)
 set(CMAKE_C_STANDARD 11)
 
 add_library(numericOperations library/numeric/operations.c)
-add_library(inputInteger library/input/integer.c)
+add_library(inputInteger library/io/integer.c)
 
 add_executable(task1_1 homework1/task1.c)
 add_executable(task1_2 homework1/task2.c)
