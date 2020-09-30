@@ -25,14 +25,14 @@ void reverse(int array[], int size)
         swap(&array[i], &array[size - 1 - i]);
 }
 
-int countDigits(int number)
+int countDigits(unsigned long long number)
 {
     if (number == 0)
         return 1;
     return (int)log10(number) + 1;
 }
 
-void dissectNumberToDigits(int digitsArray[], int size, int number)
+void dissectNumberToDigits(int digitsArray[], int size, unsigned long long number)
 {
     int i = size - 1;
     while (i >= 0) {
