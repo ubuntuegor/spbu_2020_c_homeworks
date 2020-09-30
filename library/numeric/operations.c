@@ -21,12 +21,14 @@ void swap(int* a, int* b)
 void reverse(int array[], int size)
 {
     int limit = size / 2;
-    for (int i = 0; i < limit; i++)
+    for (int i = 0; i < limit; ++i)
         swap(&array[i], &array[size - 1 - i]);
 }
 
 int countDigits(int number)
 {
+    if (number == 0)
+        return 1;
     return (int)log10(number) + 1;
 }
 
@@ -36,6 +38,6 @@ void dissectNumberToDigits(int digitsArray[], int size, int number)
     while (i >= 0) {
         digitsArray[i] = number % 10;
         number /= 10;
-        i--;
+        --i;
     }
 }
