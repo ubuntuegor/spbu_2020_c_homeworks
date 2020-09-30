@@ -16,3 +16,5 @@ add_executable(task1_5 homework1/task5.c)
 
 add_executable(task2_1 homework2/task1.c)
 target_link_libraries(task2_1 numericOperations numericIO)
+add_executable(task2_5 homework2/task5.c)
+target_link_libraries(task2_5 numericIO)
