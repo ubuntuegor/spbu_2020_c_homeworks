@@ -1,4 +1,4 @@
-#include "../library/io/integer.h"
+#include "../library/numeric/io.h"
 #include <stdio.h>
 
 long long factorialIterative(long long n)

@@ -14,4 +14,4 @@ add_executable(task1_4 homework1/task4.c)
 add_executable(task1_5 homework1/task5.c)
 
 add_executable(task2_5 homework2/task5.c)
-target_link_libraries(task2_5 ioInteger)
+target_link_libraries(task2_5 numericIO)
