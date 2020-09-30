@@ -7,6 +7,12 @@ void promptInt(char prompt[], int* variablePtr)
     scanf("%d", variablePtr);
 }
 
+void promptLL(char prompt[], long long* variablePtr)
+{
+    printf(prompt);
+    scanf("%lld", variablePtr);
+}
+
 void promptIntArray(char prompt[], int array[], int length)
 {
     printf(prompt);
