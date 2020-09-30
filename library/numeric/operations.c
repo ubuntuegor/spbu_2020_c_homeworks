@@ -1,4 +1,5 @@
 #include "operations.h"
+#include <math.h>
 
 int min(int a, int b)
 {
@@ -17,10 +18,26 @@ void swap(int* a, int* b)
     *b = temp;
 }
 
-void reverse(int* array, int size)
+void reverse(int array[], int size)
 {
     int limit = size / 2;
-    for (int i = 0; i < limit; i++) {
+    for (int i = 0; i < limit; ++i)
         swap(&array[i], &array[size - 1 - i]);
+}
+
+int countDigits(int number)
+{
+    if (number == 0)
+        return 1;
+    return (int)log10(number) + 1;
+}
+
+void dissectNumberToDigits(int digitsArray[], int size, int number)
+{
+    int i = size - 1;
+    while (i >= 0) {
+        digitsArray[i] = number % 10;
+        number /= 10;
+        --i;
     }
 }
