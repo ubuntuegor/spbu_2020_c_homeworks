@@ -13,6 +13,7 @@ ListElementI* getHeadI(ListI*);
 ListElementI* getTailI(ListI*);
 int getLengthI(ListI*);
 ListElementI* getElementI(ListI*, int position);
+ListElementI* getNextElementI(ListElementI*);
 int getElementValueI(ListElementI*);
 void setElementValueI(ListElementI*, int value);
 bool insertElementI(ListI*, int position, ListElementI*);
@@ -23,3 +24,7 @@ void printListI(ListI*);
 
 bool removeElementI(ListI*, int position);
 bool destroyListI(ListI*);
+
+void makeCycleI(ListI*);
+void breakCycleI(ListI*);
+bool isCyclicI(ListI*);

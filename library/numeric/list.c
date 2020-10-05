@@ -7,6 +7,7 @@ struct ListI {
     ListElementI* head;
     ListElementI* tail;
     int length;
+    bool cyclic;
 };
 
 struct ListElementI {
@@ -20,6 +21,7 @@ ListI* createListI()
     list->head = NULL;
     list->tail = NULL;
     list->length = 0;
+    list->cyclic = false;
     return list;
 }
 
@@ -60,6 +62,11 @@ ListElementI* getElementI(ListI* list, int position)
     return element;
 }
 
+ListElementI* getNextElementI(ListElementI* element)
+{
+    return element->next;
+}
+
 int getElementValueI(ListElementI* element)
 {
     return element->value;
@@ -84,16 +91,20 @@ bool insertElementI(ListI* list, int position, ListElementI* element)
 
     if (position == 0) {
         list->head = element;
+        if (list->cyclic) {
+            if (list->tail)
+                list->tail->next = element;
+            else
+                element->next = element;
+        }
     } else {
         prevElement->next = element;
     }
 
-    if (position == list->length) {
+    if (position == list->length)
         list->tail = element;
-        element->next = NULL;
-    } else {
-        element->next = nextElement;
-    }
+
+    element->next = nextElement;
 
     list->length++;
 
@@ -133,7 +144,7 @@ int locateElementByValueI(ListI* list, int value)
 void printListI(ListI* list)
 {
     ListElementI* element = list->head;
-    while (element) {
+    for (int i = 0; i < list->length; ++i) {
         printf("%d ", element->value);
         element = element->next;
     }
@@ -145,7 +156,7 @@ bool removeElementI(ListI* list, int position)
     if (position >= list->length)
         return false;
 
-    ListElementI* prevElement = NULL;
+    ListElementI* prevElement = (list->cyclic) ? list->tail : NULL;
     ListElementI* element = list->head;
     for (int i = 0; i < position; i++) {
         prevElement = element;
@@ -154,15 +165,25 @@ bool removeElementI(ListI* list, int position)
 
     if (position == 0) {
         list->head = element->next;
+        if (list->cyclic)
+            list->tail->next = element->next;
     } else {
         prevElement->next = element->next;
     }
 
-    if (position == list->length - 1)
+    if (position == list->length - 1) {
         list->tail = prevElement;
+        if (list->cyclic)
+            prevElement->next = list->head;
+    }
 
     free(element);
     list->length--;
+
+    if (list->length == 0) {
+        list->head = NULL;
+        list->tail = NULL;
+    }
 
     return true;
 }
@@ -172,4 +193,23 @@ bool destroyListI(ListI* list)
     while (removeElementI(list, 0)) { }
     free(list);
     return true;
+}
+
+void makeCycleI(ListI* list)
+{
+    list->cyclic = true;
+    if (list->tail)
+        list->tail->next = list->head;
+}
+
+void breakCycleI(ListI* list)
+{
+    list->cyclic = false;
+    if (list->tail)
+        list->tail->next = NULL;
+}
+
+bool isCyclicI(ListI* list)
+{
+    return list->cyclic;
 }
