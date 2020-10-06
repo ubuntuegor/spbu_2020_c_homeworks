@@ -4,9 +4,9 @@
 
 int main()
 {
-    int n;
+    int n = 0;
     promptInt("Number of warriors: ", &n);
-    int m;
+    int m = 0;
     promptInt("Kill every: ", &m);
 
     ListI* warriors = createListI();

@@ -106,7 +106,7 @@ bool insertElementI(ListI* list, int position, ListElementI* element)
 
     element->next = nextElement;
 
-    ++(list->length);
+    list->length++;
 
     return true;
 }
@@ -178,7 +178,7 @@ bool removeElementI(ListI* list, int position)
     }
 
     free(element);
-    --(list->length);
+    list->length--;
 
     if (list->length == 0) {
         list->head = NULL;
