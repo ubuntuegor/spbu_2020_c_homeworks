@@ -48,9 +48,9 @@ bool destroyList(List** list)
     if (*list == NULL)
         return false;
 
-    bool removedSuccessfully = remove(list, 0);
-    while (removedSuccessfully)
-        removedSuccessfully = remove(list, 0);
+    bool ejectedSuccessfully = eject(*list, 0);
+    while (ejectedSuccessfully)
+        ejectedSuccessfully = eject(*list, 0);
 
     free(*list);
     *list = NULL;
@@ -159,7 +159,7 @@ int locate(List* list, ListElement* element)
     return index;
 }
 
-bool remove(List* list, int index)
+bool eject(List* list, int index)
 {
     if (list == NULL
         || index < 0 || index >= getLength(list))
@@ -188,7 +188,7 @@ bool remove(List* list, int index)
     return true;
 }
 
-void printList(List* list, char prefix[])
+void printList(char prefix[], List* list)
 {
     printf("%s", prefix);
     ListElement* element = getFirstElement(list);

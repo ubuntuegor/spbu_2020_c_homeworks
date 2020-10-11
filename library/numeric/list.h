@@ -18,6 +18,6 @@ ListElement* getNextElement(ListElement*);
 bool insert(List*, int index, ListElement*);
 ListElement* retrieve(List*, int index);
 int locate(List*, ListElement*);
-bool remove(List*, int index);
+bool eject(List*, int index);
 
-void printList(List*, char prefix[]);
+void printList(char prefix[], List*);
