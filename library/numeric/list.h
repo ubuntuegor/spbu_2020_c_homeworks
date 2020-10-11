@@ -14,6 +14,7 @@ ListElement* createListElement(int value);
 int getElementValue(ListElement*);
 bool setElementValue(ListElement*, int value);
 ListElement* getNextElement(ListElement*);
+bool _setNextElement(ListElement* element, ListElement* nextElement);
 
 bool insert(List*, int index, ListElement*);
 ListElement* retrieve(List*, int index);
