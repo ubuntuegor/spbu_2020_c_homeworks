@@ -45,7 +45,7 @@ ListElement* getLastElement(List* list)
 
 bool destroyList(List** list)
 {
-    if (*list == NULL)
+    if (list == NULL || *list == NULL)
         return false;
 
     bool ejectedSuccessfully = eject(*list, 0);
