@@ -157,7 +157,7 @@ int locate(List* list, ListElement* element)
 
     int index = 0;
     ListElement* elementToCompare = getFirstElement(list);
-    while (element != elementToCompare && index < list->length) {
+    while (element != elementToCompare && index < getLength(list)) {
         elementToCompare = getNextElement(elementToCompare);
         index++;
     }
