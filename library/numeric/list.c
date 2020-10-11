@@ -1,6 +1,4 @@
 #include "list.h"
-#include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 struct ListI {
@@ -128,16 +126,6 @@ int locateElementByValueI(ListI* list, int value)
         position = -1;
 
     return position;
-}
-
-void printListI(ListI* list)
-{
-    ListElementI* element = list->head;
-    while (element) {
-        printf("%d ", element->value);
-        element = element->next;
-    }
-    printf("\n");
 }
 
 bool removeElementI(ListI* list, int position)
