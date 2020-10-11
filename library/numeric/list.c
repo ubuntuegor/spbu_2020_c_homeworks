@@ -54,7 +54,7 @@ ListElementI* getElementI(ListI* list, int position)
         return list->tail;
 
     ListElementI* element = list->head;
-    for (int i = 0; i < position; ++i) {
+    for (int i = 0; i < position; i++) {
         element = element->next;
     }
     return element;
@@ -77,7 +77,7 @@ bool insertElementI(ListI* list, int position, ListElementI* element)
 
     ListElementI* prevElement = NULL;
     ListElementI* nextElement = list->head;
-    for (int i = 0; i < position; ++i) {
+    for (int i = 0; i < position; i++) {
         prevElement = nextElement;
         nextElement = prevElement->next;
     }
@@ -95,7 +95,7 @@ bool insertElementI(ListI* list, int position, ListElementI* element)
         element->next = nextElement;
     }
 
-    ++(list->length);
+    list->length++;
 
     return true;
 }
@@ -105,7 +105,7 @@ int locateElementI(ListI* list, ListElementI* element)
     int position = 0;
     ListElementI* pointer = list->head;
     while (pointer != NULL && pointer != element) {
-        ++position;
+        position++;
         pointer = pointer->next;
     }
 
@@ -120,7 +120,7 @@ int locateElementByValueI(ListI* list, int value)
     int position = 0;
     ListElementI* pointer = list->head;
     while (pointer != NULL && pointer->value != value) {
-        ++position;
+        position++;
         pointer = pointer->next;
     }
 
@@ -147,7 +147,7 @@ bool removeElementI(ListI* list, int position)
 
     ListElementI* prevElement = NULL;
     ListElementI* element = list->head;
-    for (int i = 0; i < position; ++i) {
+    for (int i = 0; i < position; i++) {
         prevElement = element;
         element = prevElement->next;
     }
@@ -162,7 +162,7 @@ bool removeElementI(ListI* list, int position)
         list->tail = prevElement;
 
     free(element);
-    --(list->length);
+    list->length--;
 
     return true;
 }
