@@ -19,7 +19,7 @@ int main()
 
     ListElementI* prevToKill = getTailI(warriors);
     while (getLengthI(warriors) > m - 1) {
-        for (int i = 0; i < m - 1; ++i)
+        for (int i = 0; i < m - 1; i++)
             prevToKill = getNextElementI(prevToKill);
         int toKillPosition = locateElementI(warriors, getNextElementI(prevToKill));
         removeElementI(warriors, toKillPosition);
