@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 11)
 add_library(numericOperations library/numeric/operations.c)
 target_link_libraries(numericOperations PRIVATE m)
 add_library(numericIO library/numeric/io.c)
+add_library(numericList library/numeric/list.c)
 
 add_executable(task1_1 homework1/task1.c)
 add_executable(task1_2 homework1/task2.c)
