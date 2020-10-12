@@ -88,6 +88,16 @@ ListElement* getNextElement(ListElement* element)
     return element->next;
 }
 
+ListElement* getNextElementInCycle(ListElement* element, List* list)
+{
+    if (element == NULL)
+        return NULL;
+    ListElement* nextElement = element->next;
+    if (nextElement == NULL)
+        nextElement = getFirstElement(list);
+    return nextElement;
+}
+
 void destroyListElement(ListElement** elementPtr)
 {
     free(*elementPtr);
