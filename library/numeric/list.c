@@ -88,6 +88,12 @@ ListElement* getNextElement(ListElement* element)
     return element->next;
 }
 
+void destroyListElement(ListElement** elementPtr)
+{
+    free(*elementPtr);
+    *elementPtr = NULL;
+}
+
 bool insert(List* list, int index, ListElement* element)
 {
     if (list == NULL || element == NULL
