@@ -9,6 +9,9 @@ int main()
     ListElement* element3 = createListElement(3);
     ListElement* element4 = createListElement(4);
 
+    ListElement* unneededElement = createListElement(111);
+    destroyListElement(&unneededElement);
+
     insert(list, 0, element2);
     insert(list, 1, element4);
     insert(list, 0, element1);
