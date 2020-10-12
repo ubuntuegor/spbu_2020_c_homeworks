@@ -88,14 +88,6 @@ ListElement* getNextElement(ListElement* element)
     return element->next;
 }
 
-bool _setNextElement(ListElement* element, ListElement* nextElement)
-{
-    if (element == NULL)
-        return false;
-    element->next = nextElement;
-    return true;
-}
-
 bool insert(List* list, int index, ListElement* element)
 {
     if (list == NULL || element == NULL
