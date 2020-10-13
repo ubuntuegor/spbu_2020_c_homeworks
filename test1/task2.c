@@ -7,7 +7,7 @@ typedef struct Complex {
 
 void printComplex(Complex n)
 {
-    printf("\nReal: %f\nIm: %f\n", n.real, n.imaginary);
+    printf("Real: %f\nIm: %f\n\n", n.real, n.imaginary);
 }
 
 Complex add(Complex a, Complex b)
@@ -43,11 +43,18 @@ int main()
 {
     Complex n = { 1, 4 };
     Complex m = { 10, -5.5 };
+
+    printf("Number 1:\n");
     printComplex(n);
+    printf("Number 2:\n");
     printComplex(m);
+    printf("Sum:\n");
     printComplex(add(n, m));
+    printf("Diff:\n");
     printComplex(subtract(n, m));
+    printf("Multiplication:\n");
     printComplex(multiply(n, m));
+    printf("Division:\n");
     printComplex(divide(n, m));
     return 0;
 }
