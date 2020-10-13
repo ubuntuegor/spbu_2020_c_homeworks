@@ -1,6 +1,5 @@
 #include "../library/numeric/io.h"
 #include "../library/numeric/stack.h"
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
