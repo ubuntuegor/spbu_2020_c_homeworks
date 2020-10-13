@@ -30,3 +30,5 @@ add_executable(task3_1 homework3/task1.c)
 target_link_libraries(task3_1 numericList)
 add_executable(task3_2 homework3/task2.c)
 target_link_libraries(task3_2 numericIO numericList)
+
+add_executable(testing1_2 test1/task2.c)
