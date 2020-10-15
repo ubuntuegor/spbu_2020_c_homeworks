@@ -1,12 +1,21 @@
-#include "../library/numeric/io.h"
 #include "../library/numeric/stack.h"
+#include "../library/string/io.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-const int stringLimit = 100;
+bool isOperator(char character)
+{
+    if (character == '+'
+        || character == '-'
+        || character == '*'
+        || character == '/')
+        return true;
+    return false;
+}
 
-double performOperationFromStack(Stack* stack, char operation)
+double calculateOperationFromStack(Stack* stack, char operation)
 {
     double operand2 = pop(stack);
     double operand1 = pop(stack);
@@ -24,43 +33,42 @@ double performOperationFromStack(Stack* stack, char operation)
 
 int main()
 {
-    int lines = 0;
-    promptInt("How many entities are in your postfix expression? ", &lines);
+    Stack* numbers = createStack();
 
-    char inputString[stringLimit];
-    memset(inputString, '\0', stringLimit * sizeof(char));
+    char breakChars[] = { ' ', '\n' };
+    bool finishedInput = false;
+    bool invalidExpression = false;
 
-    printf("Please enter your expression (each entity on new line):\n");
+    printf("Enter your postfix expression: ");
 
-    Stack* operandsStack = createStack();
+    while (!finishedInput) {
+        char* input = readStringUntil(breakChars, sizeof(breakChars));
 
-    for (int i = 0; i < lines; i++) {
-        scanf("%s", inputString);
-        switch (*inputString) {
-        case '+':
-        case '-':
-        case '*':
-        case '/':
-            if (getStackLength(operandsStack) < 2) {
-                printf("Invalid expression.\n");
-                destroyStack(&operandsStack);
-                return 0;
+        if (isOperator(input[0])) {
+            if (getStackLength(numbers) < 2) {
+                invalidExpression = true;
+                break;
             }
-            double result = performOperationFromStack(operandsStack, *inputString);
-            push(operandsStack, result);
-            break;
-        default:
-            push(operandsStack, atof(inputString));
-            break;
+            double result = calculateOperationFromStack(numbers, input[0]);
+            push(numbers, result);
+        } else {
+            double inputNumber = atof(input);
+            push(numbers, inputNumber);
         }
+
+        if (input[strlen(input) - 1] == '\n')
+            finishedInput = true;
+
+        free(input);
     }
 
-    if (getStackLength(operandsStack) != 1)
-        printf("Invalid expression.\n");
-    else
-        printf("Result: %f\n", pop(operandsStack));
+    if (!invalidExpression && getStackLength(numbers) == 1) {
+        printf("Result: %f\n", pop(numbers));
+    } else {
+        printf("Invalid expression\n");
+    }
 
-    destroyStack(&operandsStack);
+    destroyStack(&numbers);
 
     return 0;
 }
