@@ -7,12 +7,7 @@
 
 bool isOperator(char character)
 {
-    if (character == '+'
-        || character == '-'
-        || character == '*'
-        || character == '/')
-        return true;
-    return false;
+    return (character == '+') || (character == '-') || (character == '*') || (character == '/');
 }
 
 double calculateOperationFromStack(Stack* stack, char operation)
@@ -62,11 +57,10 @@ int main()
         free(input);
     }
 
-    if (!invalidExpression && getStackLength(numbers) == 1) {
+    if (!invalidExpression && getStackLength(numbers) == 1)
         printf("Result: %f\n", pop(numbers));
-    } else {
+    else
         printf("Invalid expression\n");
-    }
 
     destroyStack(&numbers);
 
