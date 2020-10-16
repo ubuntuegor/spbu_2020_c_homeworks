@@ -1,40 +1,17 @@
 #include "../library/numeric/io.h"
 #include <stdio.h>
 
-void convertLEToBE(unsigned char* result, unsigned char* number, int bytesCount)
+short getExponent(unsigned long long bits)
 {
-    for (int i = 0; i < bytesCount; i++) {
-        result[i] = number[bytesCount - 1 - i];
-    }
-}
-
-short getExponent(unsigned char* bytes)
-{
-    unsigned short shifted = bytes[0] & (~0x80);
-    shifted <<= 4;
-    shifted += bytes[1] >> 4;
+    unsigned long long mask = 0x7ff0000000000000;
+    unsigned short shifted = (bits & mask) >> 52;
     return shifted - 1023;
 }
 
-unsigned long long getFraction(char* bytes)
+unsigned long long getFraction(unsigned long long bits)
 {
-    unsigned long long result = 0;
-    for (int i = 1; i < 8; i++) {
-        result += bytes[i];
-        result <<= 8;
-    }
-    result <<= 4;
-    return result;
-}
-
-int getFractionLength(unsigned long long fraction)
-{
-    int length = 0;
-    while (fraction != 0) {
-        fraction <<= 1;
-        length++;
-    }
-    return length;
+    unsigned long long mask = 0x000fffffffffffff;
+    return (bits & mask);
 }
 
 int main()
@@ -42,25 +19,18 @@ int main()
     double number = 0;
     promptDouble("Enter a number: ", &number);
 
-    unsigned char* pointer = (unsigned char*)(&number);
-    unsigned char bytes[8] = { 0 };
+    unsigned long long bits = *(unsigned long long*)&number;
 
-    convertLEToBE(bytes, pointer, 8);
-
-    unsigned char signBit = (bytes[0] >> 7);
-    short exponent = getExponent(bytes);
-    unsigned long long fraction = getFraction(bytes);
+    unsigned char signBit = (bits >> 63);
+    short exponent = getExponent(bits);
+    unsigned long long fraction = getFraction(bits);
 
     if (exponent == -1023 && fraction == 0) {
         printf("This is a zero\n");
         return 0;
     }
 
-    unsigned long long fractionLength = getFractionLength(fraction);
-
-    fraction >>= 64 - fractionLength;
-    unsigned long long divider = 1;
-    divider <<= fractionLength;
+    unsigned long long divider = (unsigned long long)1 << 52;
 
     char sign = (signBit) ? '-' : '+';
     double m = (double)fraction / divider + 1;
