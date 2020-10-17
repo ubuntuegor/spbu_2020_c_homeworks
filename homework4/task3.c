@@ -57,9 +57,15 @@ int main()
 
     bool binarySum[sizeof(int) * 8] = { 0 };
     sumBitArrays(binarySum, binaryNumber1, binaryNumber2);
+    int sumAsInt = getBitArrayAsInt(binarySum);
+
+    if (sumAsInt != number1 + number2) {
+        printf("Something went wrong...");
+        return 1;
+    }
 
     printBitArray("Their sum in binary: ", binarySum);
-    printf("Their sum in decimal: %d\n", getBitArrayAsInt(binarySum));
+    printf("Their sum in decimal: %d\n", sumAsInt);
 
     return 0;
 }
