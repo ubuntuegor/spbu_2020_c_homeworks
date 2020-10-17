@@ -36,3 +36,5 @@ target_link_libraries(task3_2 numericIO numericList)
 
 add_executable(task4_1 homework4/task1.c)
 target_link_libraries(task4_1 numericStack stringIO)
+add_executable(task4_2 homework4/task2.c)
+target_link_libraries(task4_2 numericIO)
