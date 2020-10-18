@@ -60,7 +60,7 @@ int main()
     int sumAsInt = getBitArrayAsInt(binarySum);
 
     if (sumAsInt != number1 + number2) {
-        printf("Something went wrong...");
+        printf("Uh-oh, something went wrong...\n");
         return 1;
     }
 
