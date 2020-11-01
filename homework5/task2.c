@@ -6,7 +6,7 @@ void askForValueAndInsert(BalancedTree* tree)
 {
     int value = 0;
     promptInt("Integer value to insert: ", &value);
-    bool result = insertBalancedTree(tree, value);
+    bool result = insertIntoBalancedTree(tree, value);
     if (result)
         printf("Value inserted succesfully!\n\n");
     else
@@ -17,7 +17,7 @@ void askForValueAndRemove(BalancedTree* tree)
 {
     int value = 0;
     promptInt("Integer value to remove: ", &value);
-    bool result = removeBalancedTree(tree, value);
+    bool result = removeFromBalancedTree(tree, value);
     if (result)
         printf("Value removed succesfully!\n\n");
     else
@@ -28,7 +28,7 @@ void askForValueAndCheckIfExists(BalancedTree* tree)
 {
     int value = 0;
     promptInt("Integer value to find: ", &value);
-    bool result = existsBalancedTree(tree, value);
+    bool result = existsInBalancedTree(tree, value);
     if (result)
         printf("%d is in the tree.\n\n", value);
     else
