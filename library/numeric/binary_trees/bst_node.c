@@ -54,21 +54,21 @@ void updateHeightBinaryTreeNode(BinaryTreeNode* node)
     node->height = max(leftHeight, rightHeight) + 1;
 }
 
-int updateTreeHeightBinaryTreeNode(BinaryTreeNode* node, int leafValue)
+int updateTreeHeightBinaryTreeNode(BinaryTreeNode* node, int addedOrRemovedValue)
 {
     if (node == NULL)
         return 0;
 
-    if (leafValue <= node->value) {
-        int updatedLeftChildHeight = updateTreeHeightBinaryTreeNode(node->leftChild, leafValue);
+    if (addedOrRemovedValue < node->value) {
+        int updatedLeftChildHeight = updateTreeHeightBinaryTreeNode(node->leftChild, addedOrRemovedValue);
         node->height = max(updatedLeftChildHeight, getHeight(node->rightChild)) + 1;
     } else {
-        int updatedRightChildHeight = updateTreeHeightBinaryTreeNode(node->rightChild, leafValue);
+        int updatedRightChildHeight = updateTreeHeightBinaryTreeNode(node->rightChild, addedOrRemovedValue);
         int leftChildHeight = getHeight(node->leftChild);
 
         // This is needed for counting correct height after removing a node with 2 children.
-        if (node->rightChild != NULL && leafValue < node->rightChild->value)
-            leftChildHeight = updateTreeHeightBinaryTreeNode(node->leftChild, leafValue);
+        if (node->rightChild != NULL && addedOrRemovedValue < node->rightChild->value)
+            leftChildHeight = updateTreeHeightBinaryTreeNode(node->leftChild, addedOrRemovedValue);
 
         node->height = max(leftChildHeight, updatedRightChildHeight) + 1;
     }
