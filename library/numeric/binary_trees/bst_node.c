@@ -118,7 +118,7 @@ void balanceTreeFromNode(BinaryTreeNode** nodePtr)
     *nodePtr = node;
 }
 
-bool existsBinaryTreeFromNode(BinaryTreeNode* node, int value)
+bool existsInBinaryTreeFromNode(BinaryTreeNode* node, int value)
 {
     while (node != NULL && node->value != value) {
         if (value < node->value)
@@ -130,7 +130,7 @@ bool existsBinaryTreeFromNode(BinaryTreeNode* node, int value)
     return node != NULL;
 }
 
-bool insertBinaryTreeFromNode(BinaryTreeNode* node, int value)
+bool insertIntoBinaryTreeFromNode(BinaryTreeNode* node, int value)
 {
     if (node == NULL)
         return false;
@@ -169,7 +169,7 @@ BinaryTreeNode* findReplacement(BinaryTreeNode* node)
     return replaceNode;
 }
 
-bool removeBinaryTreeFromNode(BinaryTreeNode** nodePtr, int value)
+bool removeFromBinaryTreeFromNode(BinaryTreeNode** nodePtr, int value)
 {
     if (nodePtr == NULL || *nodePtr == NULL)
         return false;
@@ -212,7 +212,7 @@ bool removeBinaryTreeFromNode(BinaryTreeNode** nodePtr, int value)
     } else {
         BinaryTreeNode* replaceNode = findReplacement(toDelete);
         int replaceValue = replaceNode->value;
-        removeBinaryTreeFromNode(&toDelete, replaceValue);
+        removeFromBinaryTreeFromNode(&toDelete, replaceValue);
         toDelete->value = replaceValue;
         newNode = toDelete;
     }

@@ -86,7 +86,7 @@ int selectAndCommitAction(BalancedTree* tree)
 int main()
 {
     BalancedTree* tree = createBalancedTree();
-    printf("Binary Search Tree\n\n");
+    printf("Balanced Binary Search Tree\n(AVL)\n\n");
 
     int selection = 1;
     while (selection != 0) {
