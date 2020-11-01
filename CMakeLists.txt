@@ -8,6 +8,8 @@ target_link_libraries(numericOperations PRIVATE m)
 add_library(numericIO library/numeric/io.c)
 add_library(numericList library/numeric/list.c)
 add_library(numericStack library/numeric/stack.c)
+add_library(numericAVL library/numeric/binary_trees/avl.c library/numeric/binary_trees/bst_node.c)
+target_link_libraries(numericAVL numericOperations)
 
 add_library(stringIO library/string/io.c)
 
@@ -40,3 +42,6 @@ add_executable(task4_2 homework4/task2.c)
 target_link_libraries(task4_2 numericIO)
 add_executable(task4_3 homework4/task3.c)
 target_link_libraries(task4_3 numericIO)
+
+add_executable(task5_2 homework5/task2.c)
+target_link_libraries(task5_2 numericAVL numericIO)
