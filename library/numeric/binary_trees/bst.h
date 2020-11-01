@@ -7,9 +7,9 @@ typedef struct BinaryTree BinaryTree;
 
 BinaryTree* createBinaryTree();
 
-bool existsBinaryTree(BinaryTree*, int value);
-bool insertBinaryTree(BinaryTree*, int value);
-bool removeBinaryTree(BinaryTree*, int value);
+bool existsInBinaryTree(BinaryTree*, int value);
+bool insertIntoBinaryTree(BinaryTree*, int value);
+bool removeFromBinaryTree(BinaryTree*, int value);
 
 void printBinaryTree(BinaryTree*);
 void printAscendingBinaryTree(BinaryTree*);

@@ -13,14 +13,14 @@ BinaryTree* createBinaryTree()
     return tree;
 };
 
-bool existsBinaryTree(BinaryTree* tree, int value)
+bool existsInBinaryTree(BinaryTree* tree, int value)
 {
     if (tree == NULL)
         return false;
-    return existsBinaryTreeFromNode(tree->root, value);
+    return existsInBinaryTreeFromNode(tree->root, value);
 }
 
-bool insertBinaryTree(BinaryTree* tree, int value)
+bool insertIntoBinaryTree(BinaryTree* tree, int value)
 {
     if (tree == NULL)
         return false;
@@ -30,15 +30,15 @@ bool insertBinaryTree(BinaryTree* tree, int value)
         return true;
     }
 
-    return insertBinaryTreeFromNode(tree->root, value);
+    return insertIntoBinaryTreeFromNode(tree->root, value);
 }
 
-bool removeBinaryTree(BinaryTree* tree, int value)
+bool removeFromBinaryTree(BinaryTree* tree, int value)
 {
     if (tree == NULL || tree->root == NULL)
         return false;
 
-    return removeBinaryTreeFromNode(&(tree->root), value);
+    return removeFromBinaryTreeFromNode(&(tree->root), value);
 }
 
 void printBinaryTree(BinaryTree* tree)
