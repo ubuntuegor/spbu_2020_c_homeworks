@@ -1,9 +1,11 @@
 #include "bst_node.h"
+#include "../operations.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 struct BinaryTreeNode {
     int value;
+    int height;
     BinaryTreeNode* leftChild;
     BinaryTreeNode* rightChild;
 };
@@ -12,6 +14,7 @@ BinaryTreeNode* createBinaryTreeNode(int value)
 {
     BinaryTreeNode* node = (BinaryTreeNode*)malloc(sizeof(BinaryTreeNode));
     node->value = value;
+    node->height = 0;
     node->leftChild = NULL;
     node->rightChild = NULL;
     return node;
@@ -30,6 +33,89 @@ int getChildrenCountBinaryTreeNode(BinaryTreeNode* node)
 int getValueBinaryTreeNode(BinaryTreeNode* node)
 {
     return (node == NULL) ? 0 : node->value;
+}
+
+int getHeight(BinaryTreeNode* node)
+{
+    return (node == NULL) ? 0 : node->height;
+}
+
+int getBalanceFactor(BinaryTreeNode* node)
+{
+    return (node == NULL) ? 0 : getHeight(node->rightChild) - getHeight(node->leftChild);
+}
+
+void updateHeightBinaryTreeNode(BinaryTreeNode* node)
+{
+    if (node == NULL)
+        return;
+    int leftHeight = getHeight(node->leftChild);
+    int rightHeight = getHeight(node->rightChild);
+    node->height = max(leftHeight, rightHeight) + 1;
+}
+
+int updateTreeHeightBinaryTreeNode(BinaryTreeNode* node, int leafValue)
+{
+    if (node == NULL)
+        return 0;
+
+    if (leafValue <= node->value) {
+        int updatedLeftChildHeight = updateTreeHeightBinaryTreeNode(node->leftChild, leafValue);
+        node->height = max(updatedLeftChildHeight, getHeight(node->rightChild)) + 1;
+    } else {
+        int updatedRightChildHeight = updateTreeHeightBinaryTreeNode(node->rightChild, leafValue);
+        int leftChildHeight = getHeight(node->leftChild);
+
+        // This is needed for counting correct height after removing a node with 2 children.
+        if (node->rightChild != NULL && leafValue < node->rightChild->value)
+            leftChildHeight = updateTreeHeightBinaryTreeNode(node->leftChild, leafValue);
+
+        node->height = max(leftChildHeight, updatedRightChildHeight) + 1;
+    }
+
+    return node->height;
+}
+
+void rotateLeft(BinaryTreeNode** nodePtr)
+{
+    if (nodePtr == NULL || *nodePtr == NULL)
+        return;
+    BinaryTreeNode* node = *nodePtr;
+    BinaryTreeNode* temp = node->rightChild;
+    node->rightChild = node->rightChild->leftChild;
+    temp->leftChild = node;
+    updateHeightBinaryTreeNode(node);
+    updateHeightBinaryTreeNode(temp);
+    *nodePtr = temp;
+}
+
+void rotateRight(BinaryTreeNode** nodePtr)
+{
+    if (nodePtr == NULL || *nodePtr == NULL)
+        return;
+    BinaryTreeNode* node = *nodePtr;
+    BinaryTreeNode* temp = node->leftChild;
+    node->leftChild = node->leftChild->rightChild;
+    temp->rightChild = node;
+    updateHeightBinaryTreeNode(node);
+    updateHeightBinaryTreeNode(temp);
+    *nodePtr = temp;
+}
+
+void balanceTreeFromNode(BinaryTreeNode** nodePtr)
+{
+    BinaryTreeNode* node = *nodePtr;
+    if (getBalanceFactor(node) == 2) {
+        if (getBalanceFactor(node->rightChild) < 0)
+            rotateRight(&(node->rightChild));
+        rotateLeft(&node);
+    }
+    if (getBalanceFactor(node) == -2) {
+        if (getBalanceFactor(node->leftChild) > 0)
+            rotateLeft(&(node->leftChild));
+        rotateRight(&node);
+    }
+    *nodePtr = node;
 }
 
 bool existsBinaryTreeFromNode(BinaryTreeNode* node, int value)

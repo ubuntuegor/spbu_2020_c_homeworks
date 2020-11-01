@@ -9,6 +9,11 @@ BinaryTreeNode* createBinaryTreeNode(int value);
 int getChildrenCountBinaryTreeNode(BinaryTreeNode*);
 int getValueBinaryTreeNode(BinaryTreeNode*);
 
+void updateHeightBinaryTreeNode(BinaryTreeNode*);
+int updateTreeHeightBinaryTreeNode(BinaryTreeNode*, int leafValue);
+
+void balanceTreeFromNode(BinaryTreeNode**);
+
 bool existsBinaryTreeFromNode(BinaryTreeNode*, int value);
 bool insertBinaryTreeFromNode(BinaryTreeNode*, int value);
 bool removeBinaryTreeFromNode(BinaryTreeNode**, int value);
