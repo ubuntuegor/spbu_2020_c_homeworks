@@ -20,14 +20,14 @@ void balanceTree(BalancedTree* tree)
     balanceTreeFromNode(&(tree->root));
 }
 
-bool existsBalancedTree(BalancedTree* tree, int value)
+bool existsInBalancedTree(BalancedTree* tree, int value)
 {
     if (tree == NULL)
         return false;
-    return existsBinaryTreeFromNode(tree->root, value);
+    return existsInBinaryTreeFromNode(tree->root, value);
 }
 
-bool insertBalancedTree(BalancedTree* tree, int value)
+bool insertIntoBalancedTree(BalancedTree* tree, int value)
 {
     if (tree == NULL)
         return false;
@@ -38,7 +38,7 @@ bool insertBalancedTree(BalancedTree* tree, int value)
         return true;
     }
 
-    bool result = insertBinaryTreeFromNode(tree->root, value);
+    bool result = insertIntoBinaryTreeFromNode(tree->root, value);
 
     if (!result)
         return false;
@@ -49,12 +49,12 @@ bool insertBalancedTree(BalancedTree* tree, int value)
     return true;
 }
 
-bool removeBalancedTree(BalancedTree* tree, int value)
+bool removeFromBalancedTree(BalancedTree* tree, int value)
 {
     if (tree == NULL || tree->root == NULL)
         return false;
 
-    bool result = removeBinaryTreeFromNode(&(tree->root), value);
+    bool result = removeFromBinaryTreeFromNode(&(tree->root), value);
 
     if (!result)
         return false;

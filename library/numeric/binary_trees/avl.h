@@ -7,9 +7,9 @@ typedef struct BalancedTree BalancedTree;
 
 BalancedTree* createBalancedTree();
 
-bool existsBalancedTree(BalancedTree*, int value);
-bool insertBalancedTree(BalancedTree*, int value);
-bool removeBalancedTree(BalancedTree*, int value);
+bool existsInBalancedTree(BalancedTree*, int value);
+bool insertIntoBalancedTree(BalancedTree*, int value);
+bool removeFromBalancedTree(BalancedTree*, int value);
 
 void printBalancedTree(BalancedTree*);
 void printAscendingBalancedTree(BalancedTree*);
