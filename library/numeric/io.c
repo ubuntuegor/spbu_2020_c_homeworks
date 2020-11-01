@@ -19,6 +19,12 @@ void promptULL(char prompt[], unsigned long long* variablePtr)
     scanf("%llu", variablePtr);
 }
 
+void promptDouble(char prompt[], double* variablePtr)
+{
+    printf(prompt);
+    scanf("%lf", variablePtr);
+}
+
 void promptIntArray(char prompt[], int array[], int length)
 {
     printf(prompt);

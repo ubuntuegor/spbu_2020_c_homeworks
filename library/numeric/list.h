@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SPBU_2020_C_NUMERIC_LIST_H
+#define SPBU_2020_C_NUMERIC_LIST_H
+
 #include <stdbool.h>
 
 typedef struct List List;
@@ -23,3 +25,5 @@ int locate(List*, ListElement*);
 bool eject(List*, int index);
 
 void printList(char prefix[], List*);
+
+#endif /* SPBU_2020_C_NUMERIC_LIST_H */
