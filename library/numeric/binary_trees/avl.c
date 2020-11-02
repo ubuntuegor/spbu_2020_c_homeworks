@@ -13,11 +13,11 @@ BalancedTree* createBalancedTree()
     return tree;
 };
 
-void balanceTree(BalancedTree* tree)
+void balanceTreeAfterModifying(BalancedTree* tree, int addedOrRemovedValue)
 {
     if (tree == NULL)
         return;
-    balanceTreeFromNode(&(tree->root));
+    updateHeightAndBalanceBinaryTreeNode(&(tree->root), addedOrRemovedValue);
 }
 
 bool existsInBalancedTree(BalancedTree* tree, int value)
@@ -43,8 +43,7 @@ bool insertIntoBalancedTree(BalancedTree* tree, int value)
     if (!result)
         return false;
 
-    updateTreeHeightBinaryTreeNode(tree->root, value);
-    balanceTree(tree);
+    balanceTreeAfterModifying(tree, value);
 
     return true;
 }
@@ -59,8 +58,7 @@ bool removeFromBalancedTree(BalancedTree* tree, int value)
     if (!result)
         return false;
 
-    updateTreeHeightBinaryTreeNode(tree->root, value);
-    balanceTree(tree);
+    balanceTreeAfterModifying(tree, value);
 
     return true;
 }
