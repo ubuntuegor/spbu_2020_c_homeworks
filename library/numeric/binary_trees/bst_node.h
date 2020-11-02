@@ -10,9 +10,8 @@ int getChildrenCountBinaryTreeNode(BinaryTreeNode*);
 int getValueBinaryTreeNode(BinaryTreeNode*);
 
 void updateHeightBinaryTreeNode(BinaryTreeNode*);
-int updateTreeHeightBinaryTreeNode(BinaryTreeNode*, int leafValue);
 
-void balanceTreeFromNode(BinaryTreeNode**);
+int updateHeightAndBalanceBinaryTreeNode(BinaryTreeNode**, int addedOrRemovedValue);
 
 bool existsInBinaryTreeFromNode(BinaryTreeNode*, int value);
 bool insertIntoBinaryTreeFromNode(BinaryTreeNode*, int value);
