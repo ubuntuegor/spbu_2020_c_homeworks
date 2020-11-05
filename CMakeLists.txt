@@ -40,3 +40,6 @@ add_executable(task4_2 homework4/task2.c)
 target_link_libraries(task4_2 numericIO)
 add_executable(task4_3 homework4/task3.c)
 target_link_libraries(task4_3 numericIO)
+
+add_executable(testing1_1 test1/task1.c)
+target_link_libraries(testing1_1 numericIO)
