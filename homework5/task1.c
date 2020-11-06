@@ -8,7 +8,7 @@ void askForValueAndInsert(BinaryTree* tree)
     promptInt("Integer value to insert: ", &value);
     bool result = insertIntoBinaryTree(tree, value);
     if (result)
-        printf("Value inserted succesfully!\n\n");
+        printf("Value inserted successfully!\n\n");
     else
         printf("Failed to insert value. Most likely it's already in the tree.\n\n");
 }
@@ -19,9 +19,9 @@ void askForValueAndRemove(BinaryTree* tree)
     promptInt("Integer value to remove: ", &value);
     bool result = removeFromBinaryTree(tree, value);
     if (result)
-        printf("Value removed succesfully!\n\n");
+        printf("Value removed successfully!\n\n");
     else
-        printf("Failed to removed value. Most likely it was not in the tree.\n\n");
+        printf("Failed to remove value. Most likely it was not in the tree.\n\n");
 }
 
 void askForValueAndCheckIfExists(BinaryTree* tree)
