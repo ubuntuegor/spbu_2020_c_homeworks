@@ -1,5 +1,6 @@
 #include "bst.h"
 #include "bst_node.h"
+#include "nodes/bst_operations.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -31,7 +32,14 @@ bool insertIntoBinaryTree(BinaryTree* tree, int value)
         return true;
     }
 
-    return insertIntoBinarySubtree(tree->root, value);
+    BinaryTreeNode* nodeToInsert = createBinaryTreeNode(value);
+
+    bool result = insertIntoBinarySubtree(tree->root, nodeToInsert);
+
+    if (!result)
+        destroyBinarySubtree(nodeToInsert);
+
+    return result;
 }
 
 bool removeFromBinaryTree(BinaryTree* tree, int value)
@@ -39,7 +47,12 @@ bool removeFromBinaryTree(BinaryTree* tree, int value)
     if (tree == NULL || tree->root == NULL)
         return false;
 
-    return removeFromBinarySubtree(&(tree->root), value);
+    BinaryTreeNode* removedNodePtr = NULL;
+
+    bool result = removeFromBinarySubtree(&tree->root, value, &removedNodePtr);
+    destroyBinaryTreeNode(removedNodePtr);
+
+    return result;
 }
 
 void printBinaryTree(BinaryTree* tree)
