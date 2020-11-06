@@ -32,7 +32,7 @@ int getValueBinaryTreeNode(BinaryTreeNode* node)
     return (node == NULL) ? 0 : node->value;
 }
 
-bool existsInBinaryTreeFromNode(BinaryTreeNode* node, int value)
+bool existsInBinarySubtree(BinaryTreeNode* node, int value)
 {
     while (node != NULL && node->value != value) {
         if (value < node->value)
@@ -44,25 +44,25 @@ bool existsInBinaryTreeFromNode(BinaryTreeNode* node, int value)
     return node != NULL;
 }
 
-bool insertIntoBinaryTreeFromNode(BinaryTreeNode* node, int value)
+bool insertIntoBinarySubtree(BinaryTreeNode* node, int value)
 {
     if (node == NULL)
         return false;
 
-    bool foundNodeToInsert = false;
-    while (!foundNodeToInsert) {
+    bool nodeToInsertIsFound = false;
+    while (!nodeToInsertIsFound) {
         if (value == node->value)
             return false;
         if (value < node->value) {
             if (node->leftChild != NULL)
                 node = node->leftChild;
             else
-                foundNodeToInsert = true;
+                nodeToInsertIsFound = true;
         } else {
             if (node->rightChild != NULL)
                 node = node->rightChild;
             else
-                foundNodeToInsert = true;
+                nodeToInsertIsFound = true;
         }
     }
 
@@ -77,13 +77,13 @@ bool insertIntoBinaryTreeFromNode(BinaryTreeNode* node, int value)
 BinaryTreeNode* findReplacement(BinaryTreeNode* node)
 {
     BinaryTreeNode* replaceNode = node->leftChild;
-    while (replaceNode->rightChild != NULL) {
+    while (replaceNode->rightChild != NULL)
         replaceNode = replaceNode->rightChild;
-    }
+
     return replaceNode;
 }
 
-bool removeFromBinaryTreeFromNode(BinaryTreeNode** nodePtr, int value)
+bool removeFromBinarySubtree(BinaryTreeNode** nodePtr, int value)
 {
     if (nodePtr == NULL || *nodePtr == NULL)
         return false;
@@ -126,7 +126,7 @@ bool removeFromBinaryTreeFromNode(BinaryTreeNode** nodePtr, int value)
     } else {
         BinaryTreeNode* replaceNode = findReplacement(toDelete);
         int replaceValue = replaceNode->value;
-        removeFromBinaryTreeFromNode(&toDelete, replaceValue);
+        removeFromBinarySubtree(&toDelete, replaceValue);
         toDelete->value = replaceValue;
         newNode = toDelete;
     }
@@ -143,7 +143,7 @@ bool removeFromBinaryTreeFromNode(BinaryTreeNode** nodePtr, int value)
     return true;
 }
 
-void printBinaryTreeFromNode(BinaryTreeNode* node)
+void printBinarySubtree(BinaryTreeNode* node)
 {
     if (node == NULL) {
         printf("null");
@@ -151,35 +151,35 @@ void printBinaryTreeFromNode(BinaryTreeNode* node)
     }
 
     printf("(%d ", node->value);
-    printBinaryTreeFromNode(node->leftChild);
+    printBinarySubtree(node->leftChild);
     printf(" ");
-    printBinaryTreeFromNode(node->rightChild);
+    printBinarySubtree(node->rightChild);
     printf(")");
 }
 
-void printAscendingBinaryTreeFromNode(BinaryTreeNode* node)
+void printAscendingBinarySubtree(BinaryTreeNode* node)
 {
     if (node == NULL)
         return;
-    printAscendingBinaryTreeFromNode(node->leftChild);
+    printAscendingBinarySubtree(node->leftChild);
     printf("%d ", node->value);
-    printAscendingBinaryTreeFromNode(node->rightChild);
+    printAscendingBinarySubtree(node->rightChild);
 }
 
-void printDescendingBinaryTreeFromNode(BinaryTreeNode* node)
+void printDescendingBinarySubtree(BinaryTreeNode* node)
 {
     if (node == NULL)
         return;
-    printDescendingBinaryTreeFromNode(node->rightChild);
+    printDescendingBinarySubtree(node->rightChild);
     printf("%d ", node->value);
-    printDescendingBinaryTreeFromNode(node->leftChild);
+    printDescendingBinarySubtree(node->leftChild);
 }
 
-void destroyBinaryTreeFromNode(BinaryTreeNode* node)
+void destroyBinarySubtree(BinaryTreeNode* node)
 {
     if (node == NULL)
         return;
-    destroyBinaryTreeFromNode(node->leftChild);
-    destroyBinaryTreeFromNode(node->rightChild);
+    destroyBinarySubtree(node->leftChild);
+    destroyBinarySubtree(node->rightChild);
     free(node);
 }
