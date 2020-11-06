@@ -13,14 +13,14 @@ void updateHeightBinaryTreeNode(BinaryTreeNode*);
 
 int updateHeightAndBalanceBinaryTreeNode(BinaryTreeNode**, int addedOrRemovedValue);
 
-bool existsInBinaryTreeFromNode(BinaryTreeNode*, int value);
-bool insertIntoBinaryTreeFromNode(BinaryTreeNode*, int value);
-bool removeFromBinaryTreeFromNode(BinaryTreeNode**, int value);
+bool existsInBinarySubtree(BinaryTreeNode*, int value);
+bool insertIntoBinarySubtree(BinaryTreeNode*, int value);
+bool removeFromBinarySubtree(BinaryTreeNode**, int value);
 
-void printBinaryTreeFromNode(BinaryTreeNode*);
-void printAscendingBinaryTreeFromNode(BinaryTreeNode*);
-void printDescendingBinaryTreeFromNode(BinaryTreeNode*);
+void printBinarySubtree(BinaryTreeNode*);
+void printAscendingBinarySubtree(BinaryTreeNode*);
+void printDescendingBinarySubtree(BinaryTreeNode*);
 
-void destroyBinaryTreeFromNode(BinaryTreeNode*);
+void destroyBinarySubtree(BinaryTreeNode*);
 
 #endif /* SPBU_2020_C_NUMERIC_BST_NODE_H */
