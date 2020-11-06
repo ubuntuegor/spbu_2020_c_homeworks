@@ -11,13 +11,13 @@ BinaryTree* createBinaryTree()
     BinaryTree* tree = (BinaryTree*)malloc(sizeof(BinaryTree));
     tree->root = NULL;
     return tree;
-};
+}
 
 bool existsInBinaryTree(BinaryTree* tree, int value)
 {
     if (tree == NULL)
         return false;
-    return existsInBinaryTreeFromNode(tree->root, value);
+    return existsInBinarySubtree(tree->root, value);
 }
 
 bool insertIntoBinaryTree(BinaryTree* tree, int value)
@@ -30,7 +30,7 @@ bool insertIntoBinaryTree(BinaryTree* tree, int value)
         return true;
     }
 
-    return insertIntoBinaryTreeFromNode(tree->root, value);
+    return insertIntoBinarySubtree(tree->root, value);
 }
 
 bool removeFromBinaryTree(BinaryTree* tree, int value)
@@ -38,7 +38,7 @@ bool removeFromBinaryTree(BinaryTree* tree, int value)
     if (tree == NULL || tree->root == NULL)
         return false;
 
-    return removeFromBinaryTreeFromNode(&(tree->root), value);
+    return removeFromBinarySubtree(&(tree->root), value);
 }
 
 void printBinaryTree(BinaryTree* tree)
@@ -47,7 +47,7 @@ void printBinaryTree(BinaryTree* tree)
         printf("()");
         return;
     }
-    printBinaryTreeFromNode(tree->root);
+    printBinarySubtree(tree->root);
     printf("\n");
 }
 
@@ -61,7 +61,7 @@ void printAscendingBinaryTree(BinaryTree* tree)
         printf("Tree is empty.\n");
         return;
     }
-    printAscendingBinaryTreeFromNode(tree->root);
+    printAscendingBinarySubtree(tree->root);
     printf("\n");
 }
 void printDescendingBinaryTree(BinaryTree* tree)
@@ -74,7 +74,7 @@ void printDescendingBinaryTree(BinaryTree* tree)
         printf("Tree is empty.\n");
         return;
     }
-    printDescendingBinaryTreeFromNode(tree->root);
+    printDescendingBinarySubtree(tree->root);
     printf("\n");
 }
 
@@ -82,7 +82,7 @@ bool destroyBinaryTree(BinaryTree* tree)
 {
     if (tree == NULL)
         return false;
-    destroyBinaryTreeFromNode(tree->root);
+    destroyBinarySubtree(tree->root);
     free(tree);
     return true;
 }
