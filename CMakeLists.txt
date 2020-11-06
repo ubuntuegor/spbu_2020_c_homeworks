@@ -8,7 +8,9 @@ target_link_libraries(numericOperations PRIVATE m)
 add_library(numericIO library/numeric/io.c)
 add_library(numericList library/numeric/list.c)
 add_library(numericStack library/numeric/stack.c)
-add_library(numericBST library/numeric/binary_trees/bst.c library/numeric/binary_trees/bst_node.c)
+add_library(numericBST library/numeric/binary_trees/bst.c
+                        library/numeric/binary_trees/bst_node.c
+                        library/numeric/binary_trees/nodes/bst_operations.c)
 
 add_library(stringIO library/string/io.c)
 
