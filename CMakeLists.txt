@@ -55,3 +55,7 @@ add_executable(task5_2 homework5/task2.c)
 target_link_libraries(task5_2 numericAVL numericIO)
 add_executable(trees_demo homework5/trees_demo.c)
 target_link_libraries(trees_demo numericBST numericAVL numericIO)
+
+add_executable(testing1_1 test1/task1.c)
+target_link_libraries(testing1_1 numericIO)
+add_executable(testing1_2 test1/task2.c)
