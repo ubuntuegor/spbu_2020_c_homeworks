@@ -1,6 +1,5 @@
 #ifndef SPBU_2020_C_NUMERIC_BST_H
 #define SPBU_2020_C_NUMERIC_BST_H
-#include "bst_node.h"
 #include <stdbool.h>
 
 typedef struct BinaryTree BinaryTree;

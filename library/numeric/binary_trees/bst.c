@@ -1,4 +1,5 @@
 #include "bst.h"
+#include "bst_node.h"
 #include <stdio.h>
 #include <stdlib.h>
 
