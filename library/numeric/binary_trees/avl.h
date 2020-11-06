@@ -1,6 +1,5 @@
 #ifndef SPBU_2020_C_NUMERIC_AVL_H
 #define SPBU_2020_C_NUMERIC_AVL_H
-#include "bst_node.h"
 #include <stdbool.h>
 
 typedef struct BalancedTree BalancedTree;

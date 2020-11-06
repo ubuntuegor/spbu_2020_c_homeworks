@@ -1,4 +1,5 @@
 #include "avl.h"
+#include "avl_node.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,14 +18,14 @@ void balanceTreeAfterModifying(BalancedTree* tree, int addedOrRemovedValue)
 {
     if (tree == NULL)
         return;
-    updateHeightAndBalanceBinaryTreeNode(&(tree->root), addedOrRemovedValue);
+    updateHeightAndBalanceBinarySubtree(&(tree->root), addedOrRemovedValue);
 }
 
 bool existsInBalancedTree(BalancedTree* tree, int value)
 {
     if (tree == NULL)
         return false;
-    return existsInBinaryTreeFromNode(tree->root, value);
+    return existsInBinarySubtree(tree->root, value);
 }
 
 bool insertIntoBalancedTree(BalancedTree* tree, int value)
@@ -38,7 +39,7 @@ bool insertIntoBalancedTree(BalancedTree* tree, int value)
         return true;
     }
 
-    bool result = insertIntoBinaryTreeFromNode(tree->root, value);
+    bool result = insertIntoBinarySubtree(tree->root, value);
 
     if (!result)
         return false;
@@ -53,7 +54,7 @@ bool removeFromBalancedTree(BalancedTree* tree, int value)
     if (tree == NULL || tree->root == NULL)
         return false;
 
-    bool result = removeFromBinaryTreeFromNode(&(tree->root), value);
+    bool result = removeFromBinarySubtree(&(tree->root), value);
 
     if (!result)
         return false;
@@ -69,7 +70,7 @@ void printBalancedTree(BalancedTree* tree)
         printf("()");
         return;
     }
-    printBinaryTreeFromNode(tree->root);
+    printBinarySubtree(tree->root);
     printf("\n");
 }
 
@@ -83,7 +84,7 @@ void printAscendingBalancedTree(BalancedTree* tree)
         printf("Tree is empty.\n");
         return;
     }
-    printAscendingBinaryTreeFromNode(tree->root);
+    printAscendingBinarySubtree(tree->root);
     printf("\n");
 }
 void printDescendingBalancedTree(BalancedTree* tree)
@@ -96,7 +97,7 @@ void printDescendingBalancedTree(BalancedTree* tree)
         printf("Tree is empty.\n");
         return;
     }
-    printDescendingBinaryTreeFromNode(tree->root);
+    printDescendingBinarySubtree(tree->root);
     printf("\n");
 }
 
@@ -104,7 +105,7 @@ bool destroyBalancedTree(BalancedTree* tree)
 {
     if (tree == NULL)
         return false;
-    destroyBinaryTreeFromNode(tree->root);
+    destroyBinarySubtree(tree->root);
     free(tree);
     return true;
 }

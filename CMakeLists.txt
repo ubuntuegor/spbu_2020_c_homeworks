@@ -8,8 +8,13 @@ target_link_libraries(numericOperations PRIVATE m)
 add_library(numericIO library/numeric/io.c)
 add_library(numericList library/numeric/list.c)
 add_library(numericStack library/numeric/stack.c)
-add_library(numericBST library/numeric/binary_trees/bst.c library/numeric/binary_trees/bst_node.c)
-add_library(numericAVL library/numeric/binary_trees/avl.c library/numeric/binary_trees/bst_node.c)
+add_library(numericBST library/numeric/binary_trees/bst.c
+                        library/numeric/binary_trees/bst_node.c
+                        library/numeric/binary_trees/nodes/bst_operations.c)
+add_library(numericAVL library/numeric/binary_trees/avl.c
+                        library/numeric/binary_trees/avl_node.c
+                        library/numeric/binary_trees/nodes/bst_operations.c
+                        library/numeric/binary_trees/nodes/avl_balancing.c)
 target_link_libraries(numericAVL numericOperations)
 
 add_library(stringIO library/string/io.c)
@@ -48,3 +53,5 @@ add_executable(task5_1 homework5/task1.c)
 target_link_libraries(task5_1 numericBST numericIO)
 add_executable(task5_2 homework5/task2.c)
 target_link_libraries(task5_2 numericAVL numericIO)
+add_executable(trees_demo homework5/trees_demo.c)
+target_link_libraries(trees_demo numericBST numericAVL numericIO)
