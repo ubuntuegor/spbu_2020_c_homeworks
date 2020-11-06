@@ -2,7 +2,6 @@
 #include "../bst_node.h"
 #include "bst_structure.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 int getChildrenCountBinaryTreeNode(BinaryTreeNode* node)
 {
@@ -31,32 +30,32 @@ bool existsInBinarySubtree(BinaryTreeNode* node, int value)
     return node != NULL;
 }
 
-bool insertIntoBinarySubtree(BinaryTreeNode* node, int value)
+bool insertIntoBinarySubtree(BinaryTreeNode* node, BinaryTreeNode* nodeToInsert)
 {
-    if (node == NULL)
+    if (node == NULL || nodeToInsert == NULL)
         return false;
 
-    bool nodeToInsertIsFound = false;
-    while (!nodeToInsertIsFound) {
-        if (value == node->value)
+    bool placeToInsertIsFound = false;
+    while (!placeToInsertIsFound) {
+        if (nodeToInsert->value == node->value)
             return false;
-        if (value < node->value) {
+        if (nodeToInsert->value < node->value) {
             if (node->leftChild != NULL)
                 node = node->leftChild;
             else
-                nodeToInsertIsFound = true;
+                placeToInsertIsFound = true;
         } else {
             if (node->rightChild != NULL)
                 node = node->rightChild;
             else
-                nodeToInsertIsFound = true;
+                placeToInsertIsFound = true;
         }
     }
 
-    if (value < node->value)
-        node->leftChild = createBinaryTreeNode(value);
+    if (nodeToInsert->value < node->value)
+        node->leftChild = nodeToInsert;
     else
-        node->rightChild = createBinaryTreeNode(value);
+        node->rightChild = nodeToInsert;
 
     return true;
 }
@@ -70,7 +69,7 @@ BinaryTreeNode* findReplacement(BinaryTreeNode* node)
     return replaceNode;
 }
 
-bool removeFromBinarySubtree(BinaryTreeNode** nodePtr, int value)
+bool removeFromBinarySubtree(BinaryTreeNode** nodePtr, int value, BinaryTreeNode** removedNodePtr)
 {
     if (nodePtr == NULL || *nodePtr == NULL)
         return false;
@@ -104,16 +103,16 @@ bool removeFromBinarySubtree(BinaryTreeNode** nodePtr, int value)
 
     if (toDeleteChildrenCount == 0) {
         newNode = NULL;
-        free(toDelete);
+        *removedNodePtr = toDelete;
     } else if (toDeleteChildrenCount == 1) {
         newNode = toDelete->leftChild;
         if (newNode == NULL)
             newNode = toDelete->rightChild;
-        free(toDelete);
+        *removedNodePtr = toDelete;
     } else {
         BinaryTreeNode* replaceNode = findReplacement(toDelete);
         int replaceValue = replaceNode->value;
-        removeFromBinarySubtree(&toDelete, replaceValue);
+        removeFromBinarySubtree(&toDelete, replaceValue, removedNodePtr);
         toDelete->value = replaceValue;
         newNode = toDelete;
     }
@@ -160,13 +159,4 @@ void printDescendingBinarySubtree(BinaryTreeNode* node)
     printDescendingBinarySubtree(node->rightChild);
     printf("%d ", node->value);
     printDescendingBinarySubtree(node->leftChild);
-}
-
-void destroyBinarySubtree(BinaryTreeNode* node)
-{
-    if (node == NULL)
-        return;
-    destroyBinarySubtree(node->leftChild);
-    destroyBinarySubtree(node->rightChild);
-    free(node);
 }
