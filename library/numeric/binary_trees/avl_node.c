@@ -2,12 +2,28 @@
 #include "nodes/avl_structure.h"
 #include <stdlib.h>
 
-BinaryTreeNode* createBinaryTreeNode(int value)
+BalancedTreeNode* createBalancedTreeNode(int value)
 {
-    BinaryTreeNode* node = (BinaryTreeNode*)malloc(sizeof(BinaryTreeNode));
+    BalancedTreeNode* node = (BalancedTreeNode*)malloc(sizeof(BalancedTreeNode));
     node->value = value;
     node->height = 0;
     node->leftChild = NULL;
     node->rightChild = NULL;
     return node;
+}
+
+void destroyBalancedTreeNode(BalancedTreeNode* node)
+{
+    if (node == NULL)
+        return;
+    free(node);
+}
+
+void destroyBalancedSubtree(BalancedTreeNode* node)
+{
+    if (node == NULL)
+        return;
+    destroyBalancedSubtree(node->leftChild);
+    destroyBalancedSubtree(node->rightChild);
+    free(node);
 }

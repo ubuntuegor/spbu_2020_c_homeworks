@@ -3,17 +3,17 @@
 #include "avl_structure.h"
 #include <stdlib.h>
 
-int getHeight(BinaryTreeNode* node)
+int getHeight(BalancedTreeNode* node)
 {
     return (node == NULL) ? 0 : node->height;
 }
 
-int getBalanceFactor(BinaryTreeNode* node)
+int getBalanceFactor(BalancedTreeNode* node)
 {
     return (node == NULL) ? 0 : getHeight(node->rightChild) - getHeight(node->leftChild);
 }
 
-void updateHeightBinaryTreeNode(BinaryTreeNode* node)
+void updateHeightBalancedTreeNode(BalancedTreeNode* node)
 {
     if (node == NULL)
         return;
@@ -22,35 +22,35 @@ void updateHeightBinaryTreeNode(BinaryTreeNode* node)
     node->height = max(leftHeight, rightHeight) + 1;
 }
 
-void rotateLeft(BinaryTreeNode** nodePtr)
+void rotateLeft(BalancedTreeNode** nodePtr)
 {
     if (nodePtr == NULL || *nodePtr == NULL)
         return;
-    BinaryTreeNode* node = *nodePtr;
-    BinaryTreeNode* temp = node->rightChild;
+    BalancedTreeNode* node = *nodePtr;
+    BalancedTreeNode* temp = node->rightChild;
     node->rightChild = node->rightChild->leftChild;
     temp->leftChild = node;
-    updateHeightBinaryTreeNode(node);
-    updateHeightBinaryTreeNode(temp);
+    updateHeightBalancedTreeNode(node);
+    updateHeightBalancedTreeNode(temp);
     *nodePtr = temp;
 }
 
-void rotateRight(BinaryTreeNode** nodePtr)
+void rotateRight(BalancedTreeNode** nodePtr)
 {
     if (nodePtr == NULL || *nodePtr == NULL)
         return;
-    BinaryTreeNode* node = *nodePtr;
-    BinaryTreeNode* temp = node->leftChild;
+    BalancedTreeNode* node = *nodePtr;
+    BalancedTreeNode* temp = node->leftChild;
     node->leftChild = node->leftChild->rightChild;
     temp->rightChild = node;
-    updateHeightBinaryTreeNode(node);
-    updateHeightBinaryTreeNode(temp);
+    updateHeightBalancedTreeNode(node);
+    updateHeightBalancedTreeNode(temp);
     *nodePtr = temp;
 }
 
-void balanceTreeFromNode(BinaryTreeNode** nodePtr)
+void balanceTreeFromNode(BalancedTreeNode** nodePtr)
 {
-    BinaryTreeNode* node = *nodePtr;
+    BalancedTreeNode* node = *nodePtr;
     if (getBalanceFactor(node) == 2) {
         if (getBalanceFactor(node->rightChild) < 0)
             rotateRight(&(node->rightChild));
@@ -64,23 +64,23 @@ void balanceTreeFromNode(BinaryTreeNode** nodePtr)
     *nodePtr = node;
 }
 
-int updateHeightAndBalanceBinarySubtree(BinaryTreeNode** nodePtr, int addedOrRemovedValue)
+int updateHeightAndBalanceSubtree(BalancedTreeNode** nodePtr, int addedOrRemovedValue)
 {
     if (nodePtr == NULL || *nodePtr == NULL)
         return 0;
 
-    BinaryTreeNode* node = *nodePtr;
+    BalancedTreeNode* node = *nodePtr;
 
     if (addedOrRemovedValue < node->value) {
-        int updatedLeftChildHeight = updateHeightAndBalanceBinarySubtree(&(node->leftChild), addedOrRemovedValue);
+        int updatedLeftChildHeight = updateHeightAndBalanceSubtree(&(node->leftChild), addedOrRemovedValue);
         node->height = max(updatedLeftChildHeight, getHeight(node->rightChild)) + 1;
     } else {
-        int updatedRightChildHeight = updateHeightAndBalanceBinarySubtree(&(node->rightChild), addedOrRemovedValue);
+        int updatedRightChildHeight = updateHeightAndBalanceSubtree(&(node->rightChild), addedOrRemovedValue);
         int leftChildHeight = getHeight(node->leftChild);
 
         // This is needed for counting correct height after removing a node with 2 children.
         if (node->rightChild != NULL && addedOrRemovedValue < node->rightChild->value)
-            leftChildHeight = updateHeightAndBalanceBinarySubtree(&(node->leftChild), addedOrRemovedValue);
+            leftChildHeight = updateHeightAndBalanceSubtree(&(node->leftChild), addedOrRemovedValue);
 
         node->height = max(leftChildHeight, updatedRightChildHeight) + 1;
     }

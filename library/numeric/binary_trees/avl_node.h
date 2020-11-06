@@ -1,11 +1,11 @@
 #ifndef SPBU_2020_C_NUMERIC_AVL_NODE_H
 #define SPBU_2020_C_NUMERIC_AVL_NODE_H
 
-typedef struct BinaryTreeNode BinaryTreeNode;
+typedef struct BalancedTreeNode BalancedTreeNode;
 
-BinaryTreeNode* createBinaryTreeNode(int value);
+BalancedTreeNode* createBalancedTreeNode(int value);
+void destroyBalancedTreeNode(BalancedTreeNode* node);
 
-#include "nodes/avl_balancing.h"
-#include "nodes/bst_operations.h"
+void destroyBalancedSubtree(BalancedTreeNode*);
 
 #endif /* SPBU_2020_C_NUMERIC_AVL_NODE_H */

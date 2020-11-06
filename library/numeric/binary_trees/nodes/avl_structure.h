@@ -2,11 +2,11 @@
 #define SPBU_2020_C_NUMERIC_NODES_AVL_STRUCTURE_H
 #include "../avl_node.h"
 
-struct BinaryTreeNode {
+struct BalancedTreeNode {
     int value;
+    BalancedTreeNode* leftChild;
+    BalancedTreeNode* rightChild;
     int height;
-    BinaryTreeNode* leftChild;
-    BinaryTreeNode* rightChild;
 };
 
 #endif /* SPBU_2020_C_NUMERIC_NODES_AVL_STRUCTURE_H */

@@ -1,10 +1,12 @@
 #include "avl.h"
 #include "avl_node.h"
+#include "nodes/avl_balancing.h"
+#include "nodes/bst_operations.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 struct BalancedTree {
-    BinaryTreeNode* root;
+    BalancedTreeNode* root;
 };
 
 BalancedTree* createBalancedTree()
@@ -18,14 +20,14 @@ void balanceTreeAfterModifying(BalancedTree* tree, int addedOrRemovedValue)
 {
     if (tree == NULL)
         return;
-    updateHeightAndBalanceBinarySubtree(&(tree->root), addedOrRemovedValue);
+    updateHeightAndBalanceSubtree(&tree->root, addedOrRemovedValue);
 }
 
 bool existsInBalancedTree(BalancedTree* tree, int value)
 {
     if (tree == NULL)
         return false;
-    return existsInBinarySubtree(tree->root, value);
+    return existsInBinarySubtree((BinaryTreeNode*)tree->root, value);
 }
 
 bool insertIntoBalancedTree(BalancedTree* tree, int value)
@@ -34,15 +36,19 @@ bool insertIntoBalancedTree(BalancedTree* tree, int value)
         return false;
 
     if (tree->root == NULL) {
-        tree->root = createBinaryTreeNode(value);
-        updateHeightBinaryTreeNode(tree->root);
+        tree->root = createBalancedTreeNode(value);
+        updateHeightBalancedTreeNode(tree->root);
         return true;
     }
 
-    bool result = insertIntoBinarySubtree(tree->root, value);
+    BalancedTreeNode* nodeToInsert = createBalancedTreeNode(value);
 
-    if (!result)
+    bool result = insertIntoBinarySubtree((BinaryTreeNode*)tree->root, (BinaryTreeNode*)nodeToInsert);
+
+    if (!result) {
+        destroyBalancedTreeNode(nodeToInsert);
         return false;
+    }
 
     balanceTreeAfterModifying(tree, value);
 
@@ -54,7 +60,10 @@ bool removeFromBalancedTree(BalancedTree* tree, int value)
     if (tree == NULL || tree->root == NULL)
         return false;
 
-    bool result = removeFromBinarySubtree(&(tree->root), value);
+    BalancedTreeNode* removedNodePtr = NULL;
+
+    bool result = removeFromBinarySubtree((BinaryTreeNode**)&tree->root, value, (BinaryTreeNode**)&removedNodePtr);
+    destroyBalancedTreeNode(removedNodePtr);
 
     if (!result)
         return false;
@@ -70,7 +79,7 @@ void printBalancedTree(BalancedTree* tree)
         printf("()");
         return;
     }
-    printBinarySubtree(tree->root);
+    printBinarySubtree((BinaryTreeNode*)tree->root);
     printf("\n");
 }
 
@@ -84,7 +93,7 @@ void printAscendingBalancedTree(BalancedTree* tree)
         printf("Tree is empty.\n");
         return;
     }
-    printAscendingBinarySubtree(tree->root);
+    printAscendingBinarySubtree((BinaryTreeNode*)tree->root);
     printf("\n");
 }
 void printDescendingBalancedTree(BalancedTree* tree)
@@ -97,7 +106,7 @@ void printDescendingBalancedTree(BalancedTree* tree)
         printf("Tree is empty.\n");
         return;
     }
-    printDescendingBinarySubtree(tree->root);
+    printDescendingBinarySubtree((BinaryTreeNode*)tree->root);
     printf("\n");
 }
 
@@ -105,7 +114,7 @@ bool destroyBalancedTree(BalancedTree* tree)
 {
     if (tree == NULL)
         return false;
-    destroyBinarySubtree(tree->root);
+    destroyBalancedSubtree(tree->root);
     free(tree);
     return true;
 }
