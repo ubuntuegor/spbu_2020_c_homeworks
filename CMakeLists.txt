@@ -9,12 +9,12 @@ add_library(numericIO library/numeric/io.c)
 add_library(numericList library/numeric/list.c)
 add_library(numericStack library/numeric/stack.c)
 add_library(numericBST library/numeric/binary_trees/bst.c
-                        library/numeric/binary_trees/bst_node.c
-                        library/numeric/binary_trees/nodes/bst_operations.c)
+                        library/numeric/binary_trees/node_structures/bst_node.c
+                        library/numeric/binary_trees/node_operations/basic_operations.c)
 add_library(numericAVL library/numeric/binary_trees/avl.c
-                        library/numeric/binary_trees/avl_node.c
-                        library/numeric/binary_trees/nodes/bst_operations.c
-                        library/numeric/binary_trees/nodes/avl_balancing.c)
+                        library/numeric/binary_trees/node_structures/avl_node.c
+                        library/numeric/binary_trees/node_operations/basic_operations.c
+                        library/numeric/binary_trees/node_operations/avl_balancing.c)
 target_link_libraries(numericAVL numericOperations)
 
 add_library(stringIO library/string/io.c)

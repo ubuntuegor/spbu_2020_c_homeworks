@@ -1,5 +1,5 @@
 #include "avl_node.h"
-#include "nodes/avl_structure.h"
+#include "struct_declarations.h"
 #include <stdlib.h>
 
 BalancedTreeNode* createBalancedTreeNode(int value)

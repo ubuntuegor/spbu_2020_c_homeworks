@@ -1,7 +1,7 @@
 #include "avl.h"
-#include "avl_node.h"
-#include "nodes/avl_balancing.h"
-#include "nodes/bst_operations.h"
+#include "node_operations/avl_balancing.h"
+#include "node_operations/basic_operations.h"
+#include "node_structures/avl_node.h"
 #include <stdio.h>
 #include <stdlib.h>
 

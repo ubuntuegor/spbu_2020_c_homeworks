@@ -1,6 +1,6 @@
 #include "avl_balancing.h"
 #include "../../operations.h"
-#include "avl_structure.h"
+#include "../node_structures/struct_declarations.h"
 #include <stdlib.h>
 
 int getHeight(BalancedTreeNode* node)
