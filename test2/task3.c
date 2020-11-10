@@ -2,6 +2,15 @@
 #include "../library/numeric/list.h"
 #include <stdio.h>
 
+void writeListToFile(FILE* filePointer, List* list)
+{
+    ListElement* element = getFirstElement(list);
+    for (int i = 0; i < getLength(list); ++i) {
+        fprintf(filePointer, "%d ", getElementValue(element));
+        element = getNextElement(element);
+    }
+}
+
 int main()
 {
     int a = 0;
@@ -35,14 +44,17 @@ int main()
         }
     }
 
-    printList("Less than a: ", listA);
-    printList("Between a and b: ", listAB);
-    printList("Larger than b: ", listB);
+    fclose(filePointer);
+
+    FILE* resultFilePointer = fopen("numbersabresult.txt", "w");
+
+    writeListToFile(resultFilePointer, listA);
+    writeListToFile(resultFilePointer, listAB);
+    writeListToFile(resultFilePointer, listB);
 
     destroyList(&listA);
     destroyList(&listAB);
     destroyList(&listB);
 
-    fclose(filePointer);
     return 0;
 }
