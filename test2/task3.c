@@ -56,5 +56,7 @@ int main()
     destroyList(&listAB);
     destroyList(&listB);
 
+    fclose(resultFilePointer);
+
     return 0;
 }
