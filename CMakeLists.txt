@@ -50,3 +50,5 @@ target_link_libraries(task5_1 numericBST numericIO)
 add_executable(testing1_1 test1/task1.c)
 target_link_libraries(testing1_1 numericIO)
 add_executable(testing1_2 test1/task2.c)
+
+add_executable(testing2_2 test2/task2.c)
