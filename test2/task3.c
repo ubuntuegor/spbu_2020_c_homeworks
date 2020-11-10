@@ -39,6 +39,10 @@ int main()
     printList("Between a and b: ", listAB);
     printList("Larger than b: ", listB);
 
+    destroyList(&listA);
+    destroyList(&listAB);
+    destroyList(&listB);
+
     fclose(filePointer);
     return 0;
 }
