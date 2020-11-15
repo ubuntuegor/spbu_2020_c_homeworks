@@ -166,10 +166,10 @@ HashElement* findElementInHashTable(HashTable* table, char* key)
     HashElement* element = table->buckets[index];
 
     while (element != NULL && tryNumber < table->bucketCount) {
-        if (element->removed)
-            continue;
-        if (strcmp(element->key, key) == 0)
-            return element;
+        if (!element->removed) {
+            if (strcmp(element->key, key) == 0)
+                return element;
+        }
 
         tryNumber++;
         index = hashCode + table->tryFunction(tryNumber, table->bucketCount);
