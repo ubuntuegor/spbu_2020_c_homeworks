@@ -6,14 +6,14 @@ typedef struct HashTable HashTable;
 typedef struct HashElement HashElement;
 
 typedef struct HashTableStats {
-    int insertOperationCount;
-    int insertTryCount;
-    int maxTryCountPerOperation;
-    char** maxTryCountWords;
-    int maxTryCountWordCount;
+    int totalInsertCount;
+    int totalInsertTryCount;
+    int maxTryCount;
+    char** maxTriesWords;
+    int maxTriesWordsCount;
 } HashTableStats;
 
-HashTable* createHashTable(bool countStats);
+HashTable* createHashTable(bool shouldCountStats);
 void destroyHashTable(HashTable**);
 
 int getHashTableSize(HashTable*);

@@ -10,7 +10,7 @@ struct HashTable {
     HashElement** buckets;
     int (*hashFunction)(char* key, int modulus);
     int (*tryFunction)(int n, int modulus);
-    bool countStats;
+    bool shouldCountStats;
     HashTableStats* stats;
 };
 
@@ -44,11 +44,11 @@ void destroyHashElement(HashElement** elementPtr)
 HashTableStats* createHashTableStats()
 {
     HashTableStats* stats = (HashTableStats*)malloc(sizeof(HashTableStats));
-    stats->insertOperationCount = 0;
-    stats->insertTryCount = 0;
-    stats->maxTryCountPerOperation = 0;
-    stats->maxTryCountWords = NULL;
-    stats->maxTryCountWordCount = 0;
+    stats->totalInsertCount = 0;
+    stats->totalInsertTryCount = 0;
+    stats->maxTryCount = 0;
+    stats->maxTriesWords = NULL;
+    stats->maxTriesWordsCount = 0;
     return stats;
 }
 
@@ -60,11 +60,11 @@ HashTableStats* getHashTableStats(HashTable* table)
     HashTableStats* statsCopy = (HashTableStats*)malloc(sizeof(HashTableStats));
     memcpy(statsCopy, table->stats, sizeof(HashTableStats));
 
-    statsCopy->maxTryCountWords = (char**)calloc(statsCopy->maxTryCountWordCount, sizeof(char*));
-    for (int i = 0; i < table->stats->maxTryCountWordCount; ++i) {
-        char* word = table->stats->maxTryCountWords[i];
-        statsCopy->maxTryCountWords[i] = (char*)calloc(strlen(word) + 1, sizeof(char));
-        strcpy(statsCopy->maxTryCountWords[i], word);
+    statsCopy->maxTriesWords = (char**)calloc(statsCopy->maxTriesWordsCount, sizeof(char*));
+    for (int i = 0; i < table->stats->maxTriesWordsCount; ++i) {
+        char* word = table->stats->maxTriesWords[i];
+        statsCopy->maxTriesWords[i] = (char*)calloc(strlen(word) + 1, sizeof(char));
+        strcpy(statsCopy->maxTriesWords[i], word);
     }
 
     return statsCopy;
@@ -77,13 +77,13 @@ void destroyHashTableStats(HashTableStats** statsPtr)
 
     HashTableStats* stats = *statsPtr;
 
-    freeStringArray(stats->maxTryCountWords, stats->maxTryCountWordCount);
+    freeStringArray(stats->maxTriesWords, stats->maxTriesWordsCount);
     free(stats);
 
     *statsPtr = NULL;
 }
 
-HashTable* createHashTableWithBucketCount(bool countStats, int bucketCount)
+HashTable* createHashTableWithBucketCount(bool shouldCountStats, int bucketCount)
 {
     HashTable* table = (HashTable*)malloc(sizeof(HashTable));
     table->bucketCount = bucketCount;
@@ -91,14 +91,14 @@ HashTable* createHashTableWithBucketCount(bool countStats, int bucketCount)
     table->buckets = (HashElement**)calloc(bucketCount, sizeof(HashElement*));
     table->hashFunction = rollingHashPrime2;
     table->tryFunction = squareTries;
-    table->countStats = countStats;
+    table->shouldCountStats = shouldCountStats;
     table->stats = createHashTableStats();
     return table;
 }
 
-HashTable* createHashTable(bool countStats)
+HashTable* createHashTable(bool shouldCountStats)
 {
-    return createHashTableWithBucketCount(countStats, 1);
+    return createHashTableWithBucketCount(shouldCountStats, 1);
 }
 
 void destroyHashTable(HashTable** tablePtr)
@@ -159,6 +159,7 @@ HashElement* findElementInHashTable(HashTable* table, char* key)
         return NULL;
 
     int hashCode = table->hashFunction(key, table->bucketCount);
+    printf("hash: %s - %d\n", key, hashCode);
     int tryNumber = 0;
 
     int index = hashCode + table->tryFunction(tryNumber, table->bucketCount);
@@ -168,8 +169,10 @@ HashElement* findElementInHashTable(HashTable* table, char* key)
     while (element != NULL && tryNumber < table->bucketCount) {
         if (element->removed)
             continue;
-        if (strcmp(element->key, key) == 0)
+        if (strcmp(element->key, key) == 0) {
+            printf("index: %s - %d\n", key, index);
             return element;
+        }
 
         tryNumber++;
         index = hashCode + table->tryFunction(tryNumber, table->bucketCount);
@@ -180,7 +183,7 @@ HashElement* findElementInHashTable(HashTable* table, char* key)
     return NULL;
 }
 
-HashElement* insertElementIntoHashTable(HashTable* table, char* key, int value, bool countStats)
+HashElement* insertElementIntoHashTable(HashTable* table, char* key, int value, bool shouldCountStats)
 {
     if (table == NULL || key == NULL)
         return NULL;
@@ -206,28 +209,28 @@ HashElement* insertElementIntoHashTable(HashTable* table, char* key, int value, 
     table->buckets[index] = element;
     table->size++;
 
-    if (countStats) {
+    if (shouldCountStats) {
         int tryCount = tryNumber + 1;
         HashTableStats* stats = table->stats;
-        stats->insertOperationCount++;
-        stats->insertTryCount += tryCount;
+        stats->totalInsertCount++;
+        stats->totalInsertTryCount += tryCount;
 
-        if (tryCount > stats->maxTryCountPerOperation) {
-            stats->maxTryCountPerOperation = tryCount;
+        if (tryCount > stats->maxTryCount) {
+            stats->maxTryCount = tryCount;
 
-            if (stats->maxTryCountWords != NULL)
-                freeStringArray(stats->maxTryCountWords, stats->maxTryCountWordCount);
+            if (stats->maxTriesWords != NULL)
+                freeStringArray(stats->maxTriesWords, stats->maxTriesWordsCount);
 
-            stats->maxTryCountWordCount = 1;
-            stats->maxTryCountWords = (char**)calloc(1, sizeof(char*));
-            stats->maxTryCountWords[0] = (char*)calloc(strlen(key) + 1, sizeof(char));
-            strcpy(stats->maxTryCountWords[0], key);
-        } else if (tryCount == stats->maxTryCountPerOperation) {
-            int index = stats->maxTryCountWordCount;
-            stats->maxTryCountWordCount++;
-            stats->maxTryCountWords = (char**)realloc(stats->maxTryCountWords, stats->maxTryCountWordCount * sizeof(char*));
-            stats->maxTryCountWords[index] = (char*)calloc(strlen(key) + 1, sizeof(char));
-            strcpy(stats->maxTryCountWords[index], key);
+            stats->maxTriesWordsCount = 1;
+            stats->maxTriesWords = (char**)calloc(1, sizeof(char*));
+            stats->maxTriesWords[0] = (char*)calloc(strlen(key) + 1, sizeof(char));
+            strcpy(stats->maxTriesWords[0], key);
+        } else if (tryCount == stats->maxTryCount) {
+            int index = stats->maxTriesWordsCount;
+            stats->maxTriesWordsCount++;
+            stats->maxTriesWords = (char**)realloc(stats->maxTriesWords, stats->maxTriesWordsCount * sizeof(char*));
+            stats->maxTriesWords[index] = (char*)calloc(strlen(key) + 1, sizeof(char));
+            strcpy(stats->maxTriesWords[index], key);
         }
     }
 
@@ -236,6 +239,7 @@ HashElement* insertElementIntoHashTable(HashTable* table, char* key, int value, 
 
 void resizeHashTable(HashTable* table, int newBucketCount)
 {
+    printf("%d\n", newBucketCount);
     if (table == NULL)
         return;
 
@@ -279,7 +283,7 @@ void setHashTableValue(HashTable* table, char* key, int value)
         if (getHashTableLoadFactor(table) >= 0.7)
             resizeHashTable(table, table->bucketCount * 2);
 
-        insertElementIntoHashTable(table, key, value, table->countStats);
+        insertElementIntoHashTable(table, key, value, table->shouldCountStats);
     }
 }
 
@@ -309,7 +313,7 @@ bool unsetHashTableValue(HashTable* table, char* key)
     element->removed = true;
     table->size--;
 
-    if (getHashTableLoadFactor(table) <= 0.20 && table->bucketCount > 1)
+    if (getHashTableLoadFactor(table) <= 0.2 && table->bucketCount > 1)
         resizeHashTable(table, table->bucketCount / 2);
 
     return true;

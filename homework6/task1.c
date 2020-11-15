@@ -13,15 +13,17 @@ int compareHashElementsDesc(const void* a, const void* b)
 void printWordTableStats(HashTable* wordCountTable)
 {
     HashTableStats* stats = getHashTableStats(wordCountTable);
-    double averageTryCount = (double)stats->insertTryCount / stats->insertOperationCount;
+    double averageTryCount = 0;
+    if (stats->totalInsertCount != 0)
+        averageTryCount = (double)stats->totalInsertTryCount / stats->totalInsertCount;
 
     printf("Unique word count: %d\n", getHashTableSize(wordCountTable));
     printf("Remaining empty buckets: %d\n", getHashTableBucketCount(wordCountTable) - getHashTableSize(wordCountTable));
     printf("Word table load factor: %f\n", getHashTableLoadFactor(wordCountTable));
     printf("Average insertion try count: %f\n", averageTryCount);
-    printf("Maximal insertion try count (%d) on these words:\n", stats->maxTryCountPerOperation);
-    for (int i = 0; i < stats->maxTryCountWordCount; ++i) {
-        printf("%s\n", stats->maxTryCountWords[i]);
+    printf("Maximal insertion try count (%d) on these words:\n", stats->maxTryCount);
+    for (int i = 0; i < stats->maxTriesWordsCount; ++i) {
+        printf("%s\n", stats->maxTriesWords[i]);
     }
 
     destroyHashTableStats(&stats);
@@ -56,8 +58,13 @@ int main()
     char* word = NULL;
     while (word = readWordFromFile(inputFile)) {
         int wordCount = 0;
-        getHashTableValue(wordCountTable, word, &wordCount);
-        wordCount++;
+        bool exists = getHashTableValue(wordCountTable, word, &wordCount);
+
+        if (exists)
+            wordCount++;
+        else
+            wordCount = 1;
+
         setHashTableValue(wordCountTable, word, wordCount);
         free(word);
     }
