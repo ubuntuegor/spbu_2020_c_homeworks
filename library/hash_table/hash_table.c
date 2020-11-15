@@ -159,7 +159,6 @@ HashElement* findElementInHashTable(HashTable* table, char* key)
         return NULL;
 
     int hashCode = table->hashFunction(key, table->bucketCount);
-    printf("hash: %s - %d\n", key, hashCode);
     int tryNumber = 0;
 
     int index = hashCode + table->tryFunction(tryNumber, table->bucketCount);
@@ -169,10 +168,8 @@ HashElement* findElementInHashTable(HashTable* table, char* key)
     while (element != NULL && tryNumber < table->bucketCount) {
         if (element->removed)
             continue;
-        if (strcmp(element->key, key) == 0) {
-            printf("index: %s - %d\n", key, index);
+        if (strcmp(element->key, key) == 0)
             return element;
-        }
 
         tryNumber++;
         index = hashCode + table->tryFunction(tryNumber, table->bucketCount);
@@ -239,7 +236,6 @@ HashElement* insertElementIntoHashTable(HashTable* table, char* key, int value, 
 
 void resizeHashTable(HashTable* table, int newBucketCount)
 {
-    printf("%d\n", newBucketCount);
     if (table == NULL)
         return;
 
