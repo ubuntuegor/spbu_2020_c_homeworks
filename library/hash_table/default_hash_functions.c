@@ -4,6 +4,8 @@
 
 int rollingHashPrime2(char* key, int modulus)
 {
+    if (key == NULL)
+        return 0;
     int characterCount = strlen(key);
     int n = characterCount - 1;
 
