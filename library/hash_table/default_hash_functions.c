@@ -21,7 +21,5 @@ int rollingHashPrime2(char* key, int modulus)
 
 int squareTries(int n, int modulus)
 {
-    double a = n + 1;
-    double b = (double)n / 2;
-    return (int)(a * b) % modulus;
+    return ((n + 1) * n / 2) % modulus;
 }

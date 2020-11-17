@@ -1,8 +1,12 @@
 #include "hash_table.h"
 #include "../string/io.h"
+#include "count_statistics.h"
 #include "default_hash_functions.h"
 #include <stdlib.h>
 #include <string.h>
+
+const double expandTableLimit = 0.7;
+const double shrinkTableLimit = 0.2;
 
 struct HashTable {
     int bucketCount;
@@ -206,30 +210,8 @@ HashElement* insertElementIntoHashTable(HashTable* table, char* key, int value, 
     table->buckets[index] = element;
     table->size++;
 
-    if (shouldCountStats) {
-        int tryCount = tryNumber + 1;
-        HashTableStats* stats = table->stats;
-        stats->totalInsertCount++;
-        stats->totalInsertTryCount += tryCount;
-
-        if (tryCount > stats->maxTryCount) {
-            stats->maxTryCount = tryCount;
-
-            if (stats->maxTriesWords != NULL)
-                freeStringArray(stats->maxTriesWords, stats->maxTriesWordsCount);
-
-            stats->maxTriesWordsCount = 1;
-            stats->maxTriesWords = (char**)calloc(1, sizeof(char*));
-            stats->maxTriesWords[0] = (char*)calloc(strlen(key) + 1, sizeof(char));
-            strcpy(stats->maxTriesWords[0], key);
-        } else if (tryCount == stats->maxTryCount) {
-            int index = stats->maxTriesWordsCount;
-            stats->maxTriesWordsCount++;
-            stats->maxTriesWords = (char**)realloc(stats->maxTriesWords, stats->maxTriesWordsCount * sizeof(char*));
-            stats->maxTriesWords[index] = (char*)calloc(strlen(key) + 1, sizeof(char));
-            strcpy(stats->maxTriesWords[index], key);
-        }
-    }
+    if (shouldCountStats)
+        countInsertStats(table->stats, tryNumber + 1, key);
 
     return element;
 }
@@ -276,7 +258,7 @@ void setHashTableValue(HashTable* table, char* key, int value)
     if (element != NULL)
         element->value = value;
     else {
-        if (getHashTableLoadFactor(table) >= 0.7)
+        if (getHashTableLoadFactor(table) >= expandTableLimit)
             resizeHashTable(table, table->bucketCount * 2);
 
         insertElementIntoHashTable(table, key, value, table->shouldCountStats);
@@ -309,7 +291,7 @@ bool unsetHashTableValue(HashTable* table, char* key)
     element->removed = true;
     table->size--;
 
-    if (getHashTableLoadFactor(table) <= 0.2 && table->bucketCount > 1)
+    if (getHashTableLoadFactor(table) <= shrinkTableLimit && table->bucketCount > 1)
         resizeHashTable(table, table->bucketCount / 2);
 
     return true;

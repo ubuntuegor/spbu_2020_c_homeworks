@@ -15,7 +15,8 @@ add_library(numericBST library/numeric/binary_trees/bst.c
 add_library(stringIO library/string/io.c)
 
 add_library(hashTable library/hash_table/hash_table.c
-                      library/hash_table/default_hash_functions.c)
+                      library/hash_table/default_hash_functions.c
+                      library/hash_table/count_statistics.c)
 target_link_libraries(hashTable stringIO numericOperations)
 
 add_executable(task1_1 homework1/task1.c)

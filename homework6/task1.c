@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 const char inputFilename[] = "hw6task1_input.txt";
+const int topWordsAmount = 10;
 
 int compareHashElementsDesc(const void* a, const void* b)
 {
@@ -29,14 +30,14 @@ void printWordTableStats(HashTable* wordCountTable)
     destroyHashTableStats(&stats);
 }
 
-void printTopTenWords(HashTable* wordCountTable)
+void printMostFrequentWords(HashTable* wordCountTable, int limit)
 {
     HashElement** wordArray = getHashTableAsArray(wordCountTable);
     int wordArraySize = getHashTableSize(wordCountTable);
     qsort(wordArray, wordArraySize, sizeof(HashElement*), compareHashElementsDesc);
 
-    printf("Top 10 occurring words:\n");
-    for (int i = 0; i < wordArraySize && i < 10; ++i) {
+    printf("Top %d occurring words:\n", limit);
+    for (int i = 0; i < wordArraySize && i < limit; ++i) {
         printf("%d. %s - %d occurrences\n", i + 1, getHashElementKey(wordArray[i]), getHashElementValue(wordArray[i]));
     }
 
@@ -73,7 +74,7 @@ int main()
 
     printWordTableStats(wordCountTable);
     printf("\n");
-    printTopTenWords(wordCountTable);
+    printMostFrequentWords(wordCountTable, topWordsAmount);
 
     destroyHashTable(&wordCountTable);
 

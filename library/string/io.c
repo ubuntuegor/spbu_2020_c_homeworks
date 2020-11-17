@@ -1,7 +1,6 @@
 #include "io.h"
 #include <ctype.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -14,15 +13,17 @@ char* readStringUntil(char* breakChars, int breakCharsCount)
 {
     int allocatedBytes = 2;
     char* string = (char*)malloc(allocatedBytes);
-    memset(string, '\0', allocatedBytes);
+    memset(string, 0, allocatedBytes);
 
     bool finishedReading = false;
     int writePointer = 0;
 
     while (!finishedReading) {
         if (writePointer >= allocatedBytes - 1) { // Always have a spare byte in case we need to terminate the string.
+            int halfBytes = allocatedBytes;
             allocatedBytes *= 2;
             string = (char*)realloc(string, allocatedBytes);
+            memset(string + halfBytes, 0, halfBytes);
         }
 
         char readCharacter = '\0';
@@ -67,8 +68,10 @@ char* readWordFromFile(FILE* filePtr)
                 allocatedBytes = 2;
                 string = (char*)calloc(allocatedBytes, sizeof(char));
             } else if (writeIndex >= allocatedBytes - 1) {
+                int halfBytes = allocatedBytes;
                 allocatedBytes *= 2;
-                string = (char*)realloc(string, allocatedBytes * sizeof(char));
+                string = (char*)realloc(string, allocatedBytes);
+                memset(string + halfBytes, 0, halfBytes);
             }
 
             string[writeIndex] = readCharacter;
@@ -80,6 +83,29 @@ char* readWordFromFile(FILE* filePtr)
     }
 
     return string;
+}
+
+char** initializeStringArray(char* firstValue)
+{
+    if (firstValue == NULL)
+        return NULL;
+
+    char** stringArray = (char**)calloc(1, sizeof(char*));
+    stringArray[0] = (char*)calloc(strlen(firstValue) + 1, sizeof(char));
+    strcpy(stringArray[0], firstValue);
+    return stringArray;
+}
+
+char** appendToStringArray(char** stringArray, int currentLength, char* newValue)
+{
+    if (stringArray == NULL || newValue == NULL)
+        return NULL;
+
+    int newLength = currentLength + 1;
+    stringArray = (char**)realloc(stringArray, newLength * sizeof(char*));
+    stringArray[currentLength] = (char*)calloc(strlen(newValue) + 1, sizeof(char));
+    strcpy(stringArray[currentLength], newValue);
+    return stringArray;
 }
 
 void freeStringArray(char** stringArray, int size)
