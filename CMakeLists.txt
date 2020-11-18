@@ -14,6 +14,8 @@ add_library(numericBST library/numeric/binary_trees/bst.c
 
 add_library(stringIO library/string/io.c)
 
+add_library(graph library/graph/graph.c)
+
 add_executable(task1_1 homework1/task1.c)
 add_executable(task1_2 homework1/task2.c)
 target_link_libraries(task1_2 numericOperations)
