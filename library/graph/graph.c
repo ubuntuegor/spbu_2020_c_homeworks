@@ -43,6 +43,7 @@ void destroyGraph(Graph** graphPtr)
     for (int i = 0; i < graph->nodeCount; ++i)
         free(graph->connectionMatrix[i]);
 
+    free(graph->connectionMatrix);
     free(graph);
     *graphPtr = NULL;
 }
