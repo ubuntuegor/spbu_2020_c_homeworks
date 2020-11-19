@@ -23,6 +23,13 @@ Graph* createGraph(int nodeCount, bool bidirectional)
     return graph;
 }
 
+int getGraphNodeCount(Graph* graph)
+{
+    if (graph == NULL)
+        return 0;
+    return graph->nodeCount;
+}
+
 void connectGraph(Graph* graph, int fromNode, int toNode, int distance)
 {
     if (graph == NULL)
