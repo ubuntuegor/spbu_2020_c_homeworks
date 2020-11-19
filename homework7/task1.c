@@ -7,6 +7,7 @@ int getStudentVariant(Graph* graph, int student)
 {
     if (student >= 0 && student <= 3)
         return student;
+
     GraphNode** nextStudents = NULL;
     int nextStudentCount = getOutwardGraphConnections(graph, student, &nextStudents);
 
@@ -16,9 +17,23 @@ int getStudentVariant(Graph* graph, int student)
     }
 
     int nextStudent = getIdGraphNode(nextStudents[0]);
+
     destroyGraphConnections(&nextStudents, nextStudentCount);
 
     return getStudentVariant(graph, nextStudent);
+}
+
+void readStudentData(FILE* inputFile, Graph* graph, int studentCount)
+{
+    for (int i = 0; i < studentCount - 3; ++i) {
+        int student = 0;
+        int variant = 0;
+        fscanf(inputFile, "%d %d", &student, &variant);
+
+        if (variant == -1)
+            variant = 0;
+        connectGraph(graph, student, variant, 1);
+    }
 }
 
 int main()
@@ -31,20 +46,11 @@ int main()
         return 0;
     }
 
-    int stundentCount = 0;
-    fscanf(inputFile, "%d", &stundentCount);
+    int studentCount = 0;
+    fscanf(inputFile, "%d", &studentCount);
 
-    Graph* graph = createGraph(stundentCount + 1, false);
-
-    for (int i = 0; i < stundentCount - 3; ++i) {
-        int student = 0;
-        int variant = 0;
-        fscanf(inputFile, "%d %d", &student, &variant);
-
-        if (variant == -1)
-            variant = 0;
-        connectGraph(graph, student, variant, 1);
-    }
+    Graph* graph = createGraph(studentCount + 1, false);
+    readStudentData(inputFile, graph, studentCount);
 
     fclose(inputFile);
 
@@ -53,10 +59,10 @@ int main()
         return 0;
     }
 
-    for (int i = 4; i <= stundentCount; ++i) {
+    for (int i = 4; i <= studentCount; ++i) {
         int studentVariant = getStudentVariant(graph, i);
         if (studentVariant == -1) {
-            printf("Student %d has none or mixed information. Please check your input data.\n", i);
+            printf("Student %d has no or mixed information. Please check your input data.\n", i);
             continue;
         }
         if (studentVariant == 0)
