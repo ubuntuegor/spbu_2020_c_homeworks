@@ -1,6 +1,6 @@
 #include "bst.h"
-#include "bst_node.h"
-#include "nodes/bst_operations.h"
+#include "node_operations/basic_operations.h"
+#include "node_structures/bst_node.h"
 #include <stdio.h>
 #include <stdlib.h>
 
