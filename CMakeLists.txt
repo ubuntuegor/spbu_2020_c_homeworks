@@ -67,3 +67,6 @@ target_link_libraries(task6_1 stringIO hashTable)
 add_executable(testing1_1 test1/task1.c)
 target_link_libraries(testing1_1 numericIO)
 add_executable(testing1_2 test1/task2.c)
+
+add_executable(testing2_1 test2/task1.c)
+target_link_libraries(testing2_1 numericIO)
