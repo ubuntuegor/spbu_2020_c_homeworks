@@ -70,3 +70,4 @@ add_executable(testing1_2 test1/task2.c)
 
 add_executable(testing2_1 test2/task1.c)
 target_link_libraries(testing2_1 numericIO)
+add_executable(testing2_2 test2/task2.c)
