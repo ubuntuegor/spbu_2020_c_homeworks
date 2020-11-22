@@ -1,6 +1,5 @@
-#include "bst_operations.h"
-#include "../bst_node.h"
-#include "bst_structure.h"
+#include "basic_operations.h"
+#include "../node_structures/struct_declarations.h"
 #include <stdio.h>
 
 int getChildrenCountBinaryTreeNode(BinaryTreeNode* node)

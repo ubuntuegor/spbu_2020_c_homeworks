@@ -9,10 +9,20 @@ add_library(numericIO library/numeric/io.c)
 add_library(numericList library/numeric/list.c)
 add_library(numericStack library/numeric/stack.c)
 add_library(numericBST library/numeric/binary_trees/bst.c
-                        library/numeric/binary_trees/bst_node.c
-                        library/numeric/binary_trees/nodes/bst_operations.c)
+                       library/numeric/binary_trees/node_structures/bst_node.c
+                       library/numeric/binary_trees/node_operations/basic_operations.c)
+add_library(numericAVL library/numeric/binary_trees/avl.c
+                       library/numeric/binary_trees/node_structures/avl_node.c
+                       library/numeric/binary_trees/node_operations/basic_operations.c
+                       library/numeric/binary_trees/node_operations/avl_balancing.c)
+target_link_libraries(numericAVL numericOperations)
 
 add_library(stringIO library/string/io.c)
+
+add_library(hashTable library/hash_table/hash_table.c
+                      library/hash_table/default_hash_functions.c
+                      library/hash_table/count_statistics.c)
+target_link_libraries(hashTable stringIO numericOperations)
 
 add_executable(task1_1 homework1/task1.c)
 add_executable(task1_2 homework1/task2.c)
@@ -46,10 +56,20 @@ target_link_libraries(task4_3 numericIO)
 
 add_executable(task5_1 homework5/task1.c)
 target_link_libraries(task5_1 numericBST numericIO)
+add_executable(task5_2 homework5/task2.c)
+target_link_libraries(task5_2 numericAVL numericIO)
+add_executable(trees_demo homework5/trees_demo.c)
+target_link_libraries(trees_demo numericBST numericAVL numericIO)
+
+add_executable(task6_1 homework6/task1.c)
+target_link_libraries(task6_1 stringIO hashTable)
 
 add_executable(testing1_1 test1/task1.c)
 target_link_libraries(testing1_1 numericIO)
 add_executable(testing1_2 test1/task2.c)
 
+add_executable(testing2_1 test2/task1.c)
+target_link_libraries(testing2_1 numericIO)
+add_executable(testing2_2 test2/task2.c)
 add_executable(testing2_3 test2/task3.c)
 target_link_libraries(testing2_3 numericIO numericList)
