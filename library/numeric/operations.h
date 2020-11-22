@@ -3,6 +3,7 @@
 
 int min(int, int);
 int max(int, int);
+int binpow(int a, int n);
 void swap(int*, int*);
 void reverse(int array[], int size);
 
