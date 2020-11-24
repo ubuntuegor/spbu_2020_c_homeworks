@@ -19,6 +19,8 @@ target_link_libraries(numericAVL numericOperations)
 
 add_library(stringIO library/string/io.c)
 
+add_library(graph library/graph/graph.c)
+
 add_library(hashTable library/hash_table/hash_table.c
                       library/hash_table/default_hash_functions.c
                       library/hash_table/count_statistics.c)
@@ -63,6 +65,9 @@ target_link_libraries(trees_demo numericBST numericAVL numericIO)
 
 add_executable(task6_1 homework6/task1.c)
 target_link_libraries(task6_1 stringIO hashTable)
+
+add_executable(task7_2 homework7/task2.c)
+target_link_libraries(task7_2 numericList graph)
 
 add_executable(testing1_1 test1/task1.c)
 target_link_libraries(testing1_1 numericIO)
