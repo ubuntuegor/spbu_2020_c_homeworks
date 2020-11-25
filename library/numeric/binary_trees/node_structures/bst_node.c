@@ -1,5 +1,5 @@
 #include "bst_node.h"
-#include "nodes/bst_structure.h"
+#include "struct_declarations.h"
 #include <stdlib.h>
 
 BinaryTreeNode* createBinaryTreeNode(int value)

@@ -18,6 +18,20 @@ void swap(int* a, int* b)
     *b = temp;
 }
 
+int binpow(int a, int n)
+{
+    int result = 1;
+    while (n)
+        if (n & 1) {
+            result *= a;
+            --n;
+        } else {
+            a *= a;
+            n >>= 1;
+        }
+    return result;
+}
+
 void reverse(int array[], int size)
 {
     int limit = size / 2;

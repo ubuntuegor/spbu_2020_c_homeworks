@@ -6,6 +6,7 @@ typedef struct Graph Graph;
 typedef struct GraphNode GraphNode;
 
 Graph* createGraph(int nodeCount, bool bidirectional);
+int getGraphNodeCount(Graph*);
 void connectGraph(Graph*, int fromNode, int toNode, int distance);
 void destroyGraph(Graph**);
 
