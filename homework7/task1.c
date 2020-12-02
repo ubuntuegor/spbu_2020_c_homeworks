@@ -3,16 +3,16 @@
 
 const char inputFilename[] = "hw7task1_input.txt";
 
-// Returns -1 if graph contains errors, otherwise ID of the leaf node.
 int getStudentVariant(Graph* graph, int student)
 {
-    if (student >= 0 && student <= 3)
+    if (student >= 1 && student <= 3)
         return student;
 
     GraphNode** nextStudents = NULL;
     int nextStudentCount = getOutwardGraphConnections(graph, student, &nextStudents);
 
-    if (nextStudentCount != 1) {
+    // Isolated node means that the student has not passed.
+    if (nextStudentCount == 0) {
         destroyGraphConnections(&nextStudents, nextStudentCount);
         return -1;
     }
@@ -31,9 +31,8 @@ void readStudentData(FILE* inputFile, Graph* graph, int studentCount)
         int variant = 0;
         fscanf(inputFile, "%d %d", &student, &variant);
 
-        if (variant == -1)
-            variant = 0; // Use node 0 as an identifier that the student has not passed.
-        connectGraph(graph, student, variant, 1);
+        if (variant != -1)
+            connectGraph(graph, student, variant, 1);
     }
 }
 
@@ -62,11 +61,7 @@ int main()
 
     for (int i = 4; i <= studentCount; ++i) {
         int studentVariant = getStudentVariant(graph, i);
-        if (studentVariant == -1) {
-            printf("Student %d has no or mixed information. Please check your input data.\n", i);
-            continue;
-        }
-        if (studentVariant == 0)
+        if (studentVariant == -1)
             printf("Student %d should be expelled.\n", i);
         else
             printf("Student %d - %d\n", i, studentVariant);
