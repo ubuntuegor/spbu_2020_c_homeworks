@@ -11,7 +11,7 @@ bool isDigit(char character)
 DFAState* createNumberModel(bool isFinal)
 {
     DFAState* state = createDFAState(isFinal);
-    addTransition(state, state, DFADigit, 0);
+    addTransition(state, state, DFADigit, DFAEmptyCharacter);
     return state;
 }
 
@@ -23,8 +23,8 @@ DFAState* createSignedNumberModel(bool isFinal, DFAState** digitStatePtr)
 
     addTransition(initialState, signState, DFACharacter, '+');
     addTransition(initialState, signState, DFACharacter, '-');
-    addTransition(initialState, digitState, DFADigit, 0);
-    addTransition(signState, digitState, DFADigit, 0);
+    addTransition(initialState, digitState, DFADigit, DFAEmptyCharacter);
+    addTransition(signState, digitState, DFADigit, DFAEmptyCharacter);
 
     if (digitStatePtr != NULL)
         *digitStatePtr = digitState;
@@ -41,7 +41,7 @@ DFA* createRealNumberDFA()
 
     addTransition(wholeNumberState, exponent, DFACharacter, 'E');
     addTransition(wholeNumberState, dotState, DFACharacter, '.');
-    addTransition(dotState, fractionState, DFADigit, 0);
+    addTransition(dotState, fractionState, DFADigit, DFAEmptyCharacter);
     addTransition(fractionState, exponent, DFACharacter, 'E');
 
     DFA* dfa = createDFA(initialState);
@@ -61,7 +61,7 @@ int main()
     for (int i = 0; i < inputStringLength; ++i) {
         char character = inputString[i];
         if (isDigit(character))
-            moveDFA(realNumberDFA, DFADigit, 0);
+            moveDFA(realNumberDFA, DFADigit, DFAEmptyCharacter);
         else
             moveDFA(realNumberDFA, DFACharacter, character);
     }

@@ -88,16 +88,10 @@ void moveDFA(DFA* dfa, enum DFATransitionType type, char character)
 
     for (int i = 0; i < currentState->transitionsSize && nextState == NULL; ++i) {
         DFATransition* transition = currentState->transitions[i];
-        switch (transition->type) {
-        case DFADigit:
-        case DFALetter:
-            if (type == transition->type)
-                nextState = transition->nextState;
-            break;
-        case DFACharacter:
-            if (type == transition->type && character == transition->character)
-                nextState = transition->nextState;
-            break;
+        if (type == transition->type) {
+            if (type == DFACharacter && character != transition->character)
+                continue;
+            nextState = transition->nextState;
         }
     }
 

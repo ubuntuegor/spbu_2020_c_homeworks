@@ -8,6 +8,8 @@ enum DFATransitionType { DFADigit,
     DFALetter,
     DFACharacter };
 
+#define DFAEmptyCharacter 0
+
 DFAState* createDFAState(bool isFinal);
 void addTransition(DFAState* fromState, DFAState* toState, enum DFATransitionType, char character);
 bool destroyDFAState(DFAState**);
