@@ -66,6 +66,8 @@ target_link_libraries(trees_demo numericBST numericAVL numericIO)
 add_executable(task6_1 homework6/task1.c)
 target_link_libraries(task6_1 stringIO hashTable)
 
+add_executable(task7_1 homework7/task1.c)
+target_link_libraries(task7_1 graph)
 add_executable(task7_2 homework7/task2.c)
 target_link_libraries(task7_2 numericList graph)
 
