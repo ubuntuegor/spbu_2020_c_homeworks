@@ -65,7 +65,7 @@ Vector* sumVectors(Vector* vector1, Vector* vector2)
 
 Vector* subtractVectors(Vector* vector1, Vector* vector2)
 {
-    if (vector1 == NULL || vector2 == NULL)
+    if (vector1 == NULL || vector2 == NULL || vector1->coordinatesCount != vector2->coordinatesCount)
         return NULL;
     Vector* negative = getNegativeVector(vector2);
     Vector* result = sumVectors(vector1, negative);
