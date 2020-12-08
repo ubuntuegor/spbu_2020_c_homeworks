@@ -9,5 +9,6 @@ void promptDouble(char prompt[], double*);
 void promptIntArray(char prompt[], int[], int length);
 
 void printIntArray(int[], int length);
+void printDoubleArray(double[], int length);
 
 #endif /* SPBU_2020_C_NUMERIC_IO_H */
