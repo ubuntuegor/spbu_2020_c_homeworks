@@ -27,6 +27,8 @@ add_library(hashTable library/hash_table/hash_table.c
 target_link_libraries(hashTable stringIO numericOperations)
 
 add_library(dfa library/dfa/dfa.c)
+add_library(realNumberDFA library/dfa/realNumberDFA.c)
+target_link_libraries(realNumberDFA dfa)
 
 add_executable(task1_1 homework1/task1.c)
 add_executable(task1_2 homework1/task2.c)
@@ -74,7 +76,10 @@ add_executable(task7_2 homework7/task2.c)
 target_link_libraries(task7_2 numericList graph)
 
 add_executable(task8_1 homework8/task1.c)
-target_link_libraries(task8_1 dfa stringIO)
+target_link_libraries(task8_1 realNumberDFA stringIO)
+
+add_executable(task9_1 homework9/task1.c homework9/parser.c)
+target_link_libraries(task9_1 stringIO realNumberDFA)
 
 add_executable(testing1_1 test1/task1.c)
 target_link_libraries(testing1_1 numericIO)
