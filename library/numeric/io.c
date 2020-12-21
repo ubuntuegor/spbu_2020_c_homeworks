@@ -38,3 +38,10 @@ void printIntArray(int array[], int length)
         printf("%d ", array[i]);
     printf("\n");
 }
+
+void printDoubleArray(double array[], int length)
+{
+    for (int i = 0; i < length; ++i)
+        printf("%f ", array[i]);
+    printf("\n");
+}
