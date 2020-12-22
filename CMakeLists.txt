@@ -16,6 +16,7 @@ add_library(numericAVL library/numeric/binary_trees/avl.c
                        library/numeric/binary_trees/node_operations/basic_operations.c
                        library/numeric/binary_trees/node_operations/avl_balancing.c)
 target_link_libraries(numericAVL numericOperations)
+add_library(numericPriority library/numeric/priority.c)
 
 add_library(stringIO library/string/io.c)
 
