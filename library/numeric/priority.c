@@ -1,11 +1,13 @@
 #include "priority.h"
 #include <stdlib.h>
 
-typedef struct {
+typedef struct PriorityQueueElement PriorityQueueElement;
+
+struct PriorityQueueElement {
     int value;
     int priority;
     PriorityQueueElement* next;
-} PriorityQueueElement;
+};
 
 struct PriorityQueue {
     PriorityQueueElement* first;
