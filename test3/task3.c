@@ -8,7 +8,7 @@ bool isDigit(char character)
     return character >= '0' && character <= '9';
 }
 
-bool isLetter(char character)
+bool isCharacterLetter(char character)
 {
     return (character >= 'a' && character <= 'z') || (character >= 'A' && character <= 'Z');
 }
@@ -85,7 +85,7 @@ int main()
         char character = inputString[i];
         if (isDigit(character))
             moveDFA(emailDFA, DFADigit, DFAEmptyCharacter);
-        else if (isLetter(character))
+        else if (isCharacterLetter(character))
             moveDFA(emailDFA, DFALetter, DFAEmptyCharacter);
         else
             moveDFA(emailDFA, DFACharacter, character);
