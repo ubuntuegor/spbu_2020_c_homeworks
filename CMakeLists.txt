@@ -16,6 +16,8 @@ add_library(numericAVL library/numeric/binary_trees/avl.c
                        library/numeric/binary_trees/node_operations/basic_operations.c
                        library/numeric/binary_trees/node_operations/avl_balancing.c)
 target_link_libraries(numericAVL numericOperations)
+add_library(numericHashTable library/numeric/hash_table/hash_table.c
+                             library/numeric/hash_table/default_hash_functions.c)
 
 add_library(stringIO library/string/io.c)
 
@@ -78,7 +80,10 @@ target_link_libraries(task8_1 dfa stringIO)
 
 add_executable(testing1_1 test1/task1.c)
 target_link_libraries(testing1_1 numericIO)
-add_executable(testing1_2 test1/task2.c)
+add_executable(testing1_2_try1 test1/task2_try1.c)
+
+add_executable(testing1_2_try2 test1/task2_try2.c test1/vector.c)
+target_link_libraries(testing1_2_try2 numericIO m)
 
 add_executable(testing2_1 test2/task1.c)
 target_link_libraries(testing2_1 numericIO)
@@ -86,5 +91,7 @@ add_executable(testing2_2 test2/task2.c)
 add_executable(testing2_3 test2/task3.c)
 target_link_libraries(testing2_3 numericIO numericList)
 
+add_executable(testing3_1 test3/task1.c)
+target_link_libraries(testing3_1 numericIO numericHashTable)
 add_executable(testing3_3 test3/task3.c)
 target_link_libraries(testing3_3 dfa stringIO)
