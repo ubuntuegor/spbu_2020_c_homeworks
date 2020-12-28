@@ -18,6 +18,7 @@ add_library(numericAVL library/numeric/binary_trees/avl.c
 target_link_libraries(numericAVL numericOperations)
 add_library(numericHashTable library/numeric/hash_table/hash_table.c
                              library/numeric/hash_table/default_hash_functions.c)
+add_library(numericPriority library/numeric/priority.c)
 
 add_library(stringIO library/string/io.c)
 
