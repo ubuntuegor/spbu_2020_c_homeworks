@@ -93,3 +93,5 @@ target_link_libraries(testing2_3 numericIO numericList)
 
 add_executable(testing3_1 test3/task1.c)
 target_link_libraries(testing3_1 numericIO numericHashTable)
+add_executable(testing3_3 test3/task3.c)
+target_link_libraries(testing3_3 dfa stringIO)
